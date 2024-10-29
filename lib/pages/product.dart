@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sumbertugu/commons/colors.dart';
-import 'package:sumbertugu/commons/sizes.dart';
+import 'package:sumbertugu/commons/containers/search_bar_container.dart';
 import 'package:sumbertugu/controllers/product_categories_controller.dart';
 import 'package:sumbertugu/controllers/product_controller.dart';
+import 'package:sumbertugu/pages/product/product_grid_view.dart';
+import 'package:sumbertugu/pages/product/product_list_view.dart';
 
 class ProductPage extends StatelessWidget {
   ProductPage({super.key});
@@ -16,13 +18,18 @@ class ProductPage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     return Obx(() {
+      // if (productController.isLoading.value) {
+      //   return const Center(
+      //     child: CircularProgressIndicator(),
+      //   );
+      // } else {
       return Scaffold(
         body: Padding(
           padding: const EdgeInsets.only(top: 10),
           child: CustomScrollView(
             slivers: [
               SliverAppBar(
-                // title: SearchBarContainer(),
+                title: SearchBarContainer(),
                 backgroundColor: MyColors.primary,
                 flexibleSpace: FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
@@ -102,46 +109,78 @@ class ProductPage extends StatelessWidget {
                 pinned: true,
                 expandedHeight: 200,
               ),
-              SliverToBoxAdapter(child: Builder(builder: (context) {
-                if (productController.isLoading.value) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return GridView.builder(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: productController.productItems.length,
-                    shrinkWrap: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 5,
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    Container(
+                      color: MyColors.primary,
+                      alignment: Alignment.centerRight,
+                      child: IconButton(
+                          onPressed: () {
+                            productController.togleShowListGrid();
+                          },
+                          icon: Icon((productController.showListGrid.value)
+                              ? Icons.grid_view
+                              : Icons.format_list_bulleted)),
                     ),
-                    itemBuilder: (_, index) {
-                      return Container(
-                        width: 65,
-                        height: 65,
-                        padding: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
-                          border: Border.all(color: MyColors.primary),
-                        ),
-                        child: Text(
-                          productController.productItems[index].productName!,
-                          style: const TextStyle(fontSize: MySizes.fonztSizeSm),
-                        ),
-                      );
-                    },
-                  );
-                }
-              })),
+                    Builder(builder: (context) {
+                      if (productController.showListGrid.value) {
+                        return ProductListView(
+                            productController: productController);
+                      } else {
+                        return ProductGridView(
+                            productController: productController);
+                      }
+                    }),
+                  ],
+                ),
+
+                // child: Builder(
+                //   builder: (context) {
+                //     if (productController.isLoading.value) {
+                //       return const Center(
+                //         child: CircularProgressIndicator(),
+                //       );
+                //     } else {
+                //       return GridView.builder(
+                //         padding: EdgeInsets.zero,
+                //         scrollDirection: Axis.vertical,
+                //         physics: const BouncingScrollPhysics(),
+                //         itemCount: productController.productItems.length,
+                //         shrinkWrap: true,
+                //         gridDelegate:
+                //             const SliverGridDelegateWithFixedCrossAxisCount(
+                //           crossAxisCount: 2,
+                //           mainAxisSpacing: 5,
+                //           crossAxisSpacing: 5,
+                //         ),
+                //         itemBuilder: (_, index) {
+                //           return Container(
+                //             width: 65,
+                //             height: 65,
+                //             padding: const EdgeInsets.all(10),
+                //             decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(7),
+                //               border: Border.all(color: MyColors.primary),
+                //             ),
+                //             child: Text(
+                //               productController
+                //                   .productItems[index].productName!,
+                //               style: const TextStyle(
+                //                   fontSize: MySizes.fonztSizeSm),
+                //             ),
+                //           );
+                //         },
+                //       );
+                //     }
+                //   },
+                // ),
+              ),
             ],
           ),
         ),
       );
+      // }
     });
   }
 }

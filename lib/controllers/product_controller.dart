@@ -6,6 +6,7 @@ class ProductController extends GetxController {
   var productItems = <ProductModel>[].obs;
   var isLoading = true.obs;
   var currentTabIndex = 0.obs;
+  var showListGrid = false.obs;
 
   @override
   void onInit() {
@@ -23,5 +24,12 @@ class ProductController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  togleShowListGrid() {
+    showListGrid(!showListGrid.value);
+    // if (kDebugMode) {
+    //   print(showListGrid.value);
+    // }
   }
 }
