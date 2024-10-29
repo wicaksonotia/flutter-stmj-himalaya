@@ -42,7 +42,7 @@ class BoxContainer extends StatelessWidget {
                   blurRadius: 7,
                   // offset: Offset(0, 3), // changes position of shadow
                 )
-              : BoxShadow()
+              : const BoxShadow()
         ],
         color: backgroundColor,
         borderRadius: BorderRadius.circular(radius),

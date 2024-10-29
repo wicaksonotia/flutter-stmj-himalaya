@@ -21,7 +21,7 @@ class AppPage {
   static List<GetPage> routes = [
     GetPage(name: navbar, page: () => const Navbar()),
     GetPage(name: home, page: () => const HomePage()),
-    GetPage(name: product, page: () => const ProductPage()),
+    GetPage(name: product, page: () => ProductPage()),
     GetPage(name: promo, page: () => const PromoPage()),
     GetPage(name: profile, page: () => const ProfilePage()),
   ];

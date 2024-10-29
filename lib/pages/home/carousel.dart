@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/controllers/carousel_controller.dart';
@@ -34,9 +35,9 @@ class CarouselContainer extends StatelessWidget {
                 viewportFraction: .95,
                 // autoPlayInterval: const Duration(seconds: 10),
                 autoPlayAnimationDuration: const Duration(seconds: 5),
-                onPageChanged: (index, _) {
-                  carouselController.indexSlider.value = index;
-                },
+                // onPageChanged: (index, _) {
+                //   carouselController.indexSlider.value = index;
+                // },
               ),
               items: carouselController.carouselItems.map((dataSliderImage) {
                 Uint8List decodePhoto;
@@ -63,6 +64,7 @@ class CarouselContainer extends StatelessWidget {
               }).toList(),
             ),
 
+            const Gap(10),
             // CAROUSEL INDICATOR
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,13 +75,13 @@ class CarouselContainer extends StatelessWidget {
                       carouselController.indexSlider.value == index;
                   return GestureDetector(
                     child: AnimatedContainer(
-                      width: isSelected ? 30 : 10,
-                      height: 10,
+                      width: isSelected ? 30 : 5,
+                      height: 5,
                       margin:
                           EdgeInsets.symmetric(horizontal: isSelected ? 6 : 3),
                       decoration: BoxDecoration(
                         color: isSelected ? MyColors.primary : MyColors.grey,
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.ease,

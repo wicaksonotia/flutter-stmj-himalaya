@@ -23,11 +23,11 @@ class _NavbarState extends State<Navbar> {
       return Scaffold(
         body: IndexedStack(
           index: controller.tabIndex,
-          children: const [
-            HomePage(),
+          children: [
+            const HomePage(),
             ProductPage(),
-            PromoPage(),
-            ProfilePage()
+            const PromoPage(),
+            const ProfilePage()
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

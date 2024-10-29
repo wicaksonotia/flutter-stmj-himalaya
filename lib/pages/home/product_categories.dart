@@ -27,7 +27,6 @@ class ProductCategories extends StatelessWidget {
             crossAxisCount: 4,
             mainAxisSpacing: 5,
             crossAxisSpacing: 5,
-            // mainAxisExtent: 240,
           ),
           itemBuilder: (_, index) {
             return Column(
@@ -39,11 +38,6 @@ class ProductCategories extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(7),
                     border: Border.all(color: MyColors.primary),
-                    // image: DecorationImage(
-                    //   image: AssetImage(
-                    //       'assets/images/icon/${controller.productCategoryItems[index].name!}.png'),
-                    //   fit: BoxFit.cover,
-                    // ),
                   ),
                   child: Image(
                     image: AssetImage(

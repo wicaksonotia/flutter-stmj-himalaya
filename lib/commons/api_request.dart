@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:sumbertugu/models/carousel_model.dart';
 import 'package:sumbertugu/models/category_model.dart';
+import 'package:sumbertugu/models/product_model.dart';
 // import 'package:http/http.dart' as http;
 
 class RemoteDataSource {
@@ -19,7 +20,7 @@ class RemoteDataSource {
     }
   }
 
-  // PRODUCT
+  // PRODUCT CATEGORIES
   static Future<List<ProductCategoriesModel>?> getProductCategories() async {
     try {
       final response = await Dio().get('http://103.184.181.9/api/category');
@@ -29,6 +30,21 @@ class RemoteDataSource {
         // if (kDebugMode) {
         //   print(jsonData);
         // }
+      }
+      return null;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  // PRODUCT
+  static Future<List<ProductModel>?> getProduct(int params) async {
+    try {
+      final response =
+          await Dio().get('http://103.184.181.9/api/product?category=$params');
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = response.data;
+        return jsonData.map((e) => ProductModel.fromJson(e)).toList();
       }
       return null;
     } catch (e) {
