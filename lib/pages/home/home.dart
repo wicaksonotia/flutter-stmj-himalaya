@@ -38,7 +38,7 @@ class HomePage extends StatelessWidget {
 
                 // SEARCH BAR HEADER
                 Container(
-                    margin: const EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 40),
                     child: Column(
                       children: [
                         SearchBarContainer(),

@@ -55,25 +55,5 @@ class SearchBarContainer extends GetWidget<SearchBarController> {
         ],
       ),
     );
-    // return Expanded(
-    //   child: Obx(
-    //     () => TextFieldWidget(
-    //       hint: "Cari produk disini..",
-    //       prefixIcon: Icons.search,
-    //       controller: controller.searchTextFieldController,
-    //       filled: true,
-    //       suffixIcon: controller.isEmptyValue.value ? null : Icons.clear,
-    //       onTapSuffixIcon: () {
-    //         controller.searchTextFieldController.clear();
-    //         controller.isEmptyValue.value = true;
-    //       },
-    //       onChanged: (value) {
-    //         value.isEmpty
-    //             ? controller.isEmptyValue.value = true
-    //             : controller.isEmptyValue.value = false;
-    //       },
-    //     ),
-    //   ),
-    // );
   }
 }

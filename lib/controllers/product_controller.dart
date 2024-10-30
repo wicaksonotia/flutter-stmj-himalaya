@@ -5,7 +5,7 @@ import 'package:sumbertugu/models/product_model.dart';
 class ProductController extends GetxController {
   var productItems = <ProductModel>[].obs;
   var isLoading = true.obs;
-  var currentTabIndex = 0.obs;
+  RxInt currentTabIndex = 0.obs;
   var showListGrid = false.obs;
 
   @override
@@ -34,7 +34,7 @@ class ProductController extends GetxController {
     // }
   }
 
-  void onChaneTab(int idx) {
+  void onChangeTab(int idx) {
     currentTabIndex(idx);
   }
 }
