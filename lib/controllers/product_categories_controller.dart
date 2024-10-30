@@ -5,6 +5,7 @@ import 'package:sumbertugu/models/category_model.dart';
 class ProductCategoriesController extends GetxController {
   var productCategoryItems = <ProductCategoriesModel>[].obs;
   var isLoading = true.obs;
+  var indexImage = 0.obs;
 
   @override
   void onInit() {
@@ -13,6 +14,7 @@ class ProductCategoriesController extends GetxController {
   }
 
   void fetchProductCategories() async {
+    indexImage.refresh();
     try {
       isLoading(true);
       var result = await RemoteDataSource.getProductCategories();

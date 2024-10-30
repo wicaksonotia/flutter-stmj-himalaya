@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sumbertugu/commons/colors.dart';
@@ -16,6 +17,7 @@ class ProductPage extends StatelessWidget {
     final ProductCategoriesController productCategoriesController =
         Get.put(ProductCategoriesController());
     var size = MediaQuery.of(context).size;
+    // Uint8List decodePhoto;
 
     return Obx(
       () => Scaffold(
@@ -26,8 +28,16 @@ class ProductPage extends StatelessWidget {
               backgroundColor: MyColors.primary,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
-                background: Image.network(
-                  "https://img.freepik.com/premium-psd/free-psd-big-sale-youtube-thumbnail-design_634294-1799.jpg",
+                title: Text(
+                    "${productCategoriesController.indexImage.value} ===>>> ini"),
+                background: Image(
+                  image: productCategoriesController
+                          .productCategoryItems.isNotEmpty
+                      ? MemoryImage(
+                          const Base64Decoder().convert(
+                              '${productCategoriesController.productCategoryItems[productCategoriesController.indexImage.value].image}'),
+                        )
+                      : const AssetImage('assets/images/no_image.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -56,6 +66,8 @@ class ProductPage extends StatelessWidget {
                                   productController.currentTabIndex.value =
                                       index;
                                   productController.fetchProduct();
+                                  productCategoriesController.indexImage.value =
+                                      index;
                                 },
                                 child: Text(
                                   productCategoriesController
