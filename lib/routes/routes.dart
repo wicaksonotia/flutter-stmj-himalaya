@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:sumbertugu/navbar/navbar.dart';
 import 'package:sumbertugu/pages/home/home.dart';
-import 'package:sumbertugu/pages/product.dart';
+import 'package:sumbertugu/pages/product/product.dart';
 import 'package:sumbertugu/pages/profile.dart';
 import 'package:sumbertugu/pages/promo.dart';
 
@@ -21,7 +21,7 @@ class AppPage {
   static List<GetPage> routes = [
     GetPage(name: navbar, page: () => const Navbar()),
     GetPage(name: home, page: () => const HomePage()),
-    GetPage(name: product, page: () => ProductPage()),
+    GetPage(name: product, page: () => const ProductPage()),
     GetPage(name: promo, page: () => const PromoPage()),
     GetPage(name: profile, page: () => const ProfilePage()),
   ];

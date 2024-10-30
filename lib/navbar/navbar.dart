@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/controllers/navbar_controller.dart';
 import 'package:sumbertugu/pages/home/home.dart';
-import 'package:sumbertugu/pages/product.dart';
+import 'package:sumbertugu/pages/product/product.dart';
 import 'package:sumbertugu/pages/profile.dart';
 import 'package:sumbertugu/pages/promo.dart';
 import 'package:iconly/iconly.dart';
@@ -23,11 +23,11 @@ class _NavbarState extends State<Navbar> {
       return Scaffold(
         body: IndexedStack(
           index: controller.tabIndex,
-          children: [
-            const HomePage(),
+          children: const [
+            HomePage(),
             ProductPage(),
-            const PromoPage(),
-            const ProfilePage()
+            PromoPage(),
+            ProfilePage()
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(

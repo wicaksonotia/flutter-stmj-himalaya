@@ -15,6 +15,7 @@ class ProductController extends GetxController {
   }
 
   void fetchProduct() async {
+    currentTabIndex.refresh();
     try {
       isLoading(true);
       var result = await RemoteDataSource.getProduct(currentTabIndex.value + 1);
@@ -31,5 +32,9 @@ class ProductController extends GetxController {
     // if (kDebugMode) {
     //   print(showListGrid.value);
     // }
+  }
+
+  void onChaneTab(int idx) {
+    currentTabIndex(idx);
   }
 }

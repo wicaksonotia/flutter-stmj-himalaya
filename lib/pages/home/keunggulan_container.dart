@@ -14,7 +14,7 @@ class KeunggulanContainer extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
         child: Container(
           width: 75,
-          height: 90,
+          height: 100,
           padding: const EdgeInsets.only(top: 7),
           decoration: BoxDecoration(
             color: Colors.grey.shade200.withOpacity(0.5),
