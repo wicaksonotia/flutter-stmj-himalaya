@@ -17,6 +17,7 @@ class Navbar extends StatefulWidget {
 
 class _NavbarState extends State<Navbar> {
   final controller = Get.put(NavBarController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -30,12 +31,24 @@ class _NavbarState extends State<Navbar> {
             ProfilePage()
           ],
         ),
+        // body: PageView(
+        //   controller: _pageController,
+        //   onPageChanged: (index) {
+        //     controller.tabIndex.value = index;
+        //   },
+        //   children: const [
+        //     HomePage(),
+        //     ProductPage(),
+        //     PromoPage(),
+        //     ProfilePage()
+        //   ],
+        // ),
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: MyColors.primary,
           unselectedItemColor: MyColors.grey,
           backgroundColor: Colors.white,
           currentIndex: controller.tabIndex.value,
-          onTap: (index) {
+          onTap: (int index) {
             controller.tabIndex.value = index;
             controller.changeTabIndex();
           },

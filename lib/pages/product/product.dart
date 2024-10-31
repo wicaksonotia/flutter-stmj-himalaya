@@ -35,7 +35,7 @@ class ProductPage extends StatelessWidget {
                           .productCategoryItems.isNotEmpty
                       ? MemoryImage(
                           const Base64Decoder().convert(
-                              '${productCategoriesController.productCategoryItems[productCategoriesController.indexImage.value].image}'),
+                              '${productCategoriesController.productCategoryItems[productController.currentTabIndex.value].image}'),
                         )
                       : const AssetImage('assets/images/no_image.jpg'),
                   fit: BoxFit.cover,

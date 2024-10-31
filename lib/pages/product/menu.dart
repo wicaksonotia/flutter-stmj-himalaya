@@ -26,7 +26,6 @@ class MenuProductCatagories extends StatelessWidget {
               onTap: () {
                 productController.currentTabIndex.value = index;
                 productController.fetchProduct();
-                productCategoriesController.indexImage.value = index;
               },
               child: Text(
                 productCategoriesController.productCategoryItems[index].name!,
