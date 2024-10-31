@@ -25,7 +25,7 @@ class SeeAllContainer extends StatelessWidget {
               Text(
                 header,
                 style: const TextStyle(
-                  fontSize: MySizes.fonztSizeLg,
+                  fontSize: MySizes.fontSizeLg,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -33,7 +33,7 @@ class SeeAllContainer extends StatelessWidget {
                   ? Text(
                       subHeader,
                       style: const TextStyle(
-                          fontSize: MySizes.fonztSizeMd, color: Colors.grey),
+                          fontSize: MySizes.fontSizeMd, color: Colors.grey),
                     )
                   : const SizedBox()
             ],
@@ -52,7 +52,7 @@ class SeeAllContainer extends StatelessWidget {
                       Text(
                         "See all",
                         style: TextStyle(
-                          fontSize: MySizes.fonztSizeSm,
+                          fontSize: MySizes.fontSizeSm,
                           color: MyColors.grey,
                           fontWeight: FontWeight.bold,
                         ),
@@ -66,7 +66,7 @@ class SeeAllContainer extends StatelessWidget {
                   // const Text(
                   //   "Lihat Semua >",
                   //   style: TextStyle(
-                  //     fontSize: MySizes.fonztSizeSm,
+                  //     fontSize: MySizes.fontSizeSm,
                   //     color: MyColors.grey,
                   //     fontWeight: FontWeight.bold,
                   //   ),

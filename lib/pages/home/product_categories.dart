@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/commons/sizes.dart';
@@ -25,7 +26,7 @@ class ProductCategories extends StatelessWidget {
           // physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
-            mainAxisSpacing: 5,
+            mainAxisSpacing: 10,
             crossAxisSpacing: 5,
           ),
           itemBuilder: (_, index) {
@@ -44,8 +45,9 @@ class ProductCategories extends StatelessWidget {
                         'assets/images/icon/${controller.productCategoryItems[index].name!}.png'),
                   ),
                 ),
+                const Gap(3),
                 Text(controller.productCategoryItems[index].name!,
-                    style: const TextStyle(fontSize: MySizes.fonztSizeSm))
+                    style: const TextStyle(fontSize: MySizes.fontSizeSm))
               ],
             );
           },

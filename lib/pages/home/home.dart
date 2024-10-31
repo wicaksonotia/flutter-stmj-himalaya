@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: MediaQuery.removePadding(
         context: context,
         removeTop: true,
@@ -41,7 +42,7 @@ class HomePage extends StatelessWidget {
                     margin: const EdgeInsets.only(top: 40),
                     child: Column(
                       children: [
-                        SearchBarContainer(),
+                        const SearchBarContainer(),
                         Center(
                           child: Container(
                             margin: const EdgeInsets.only(top: 20),
@@ -103,8 +104,9 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
               width: MediaQuery.of(context).size.width,
               radius: 7,
-              shadow: false,
-              showBorder: false,
+              shadow: true,
+              showBorder: true,
+              borderColor: MyColors.grey,
               child: ProductCategories(),
             ),
           ],

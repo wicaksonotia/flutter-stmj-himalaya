@@ -22,6 +22,7 @@ class ProductPage extends StatelessWidget {
 
     return Obx(
       () => Scaffold(
+        backgroundColor: Colors.white,
         body: CustomScrollView(
           slivers: [
             SliverAppBar(

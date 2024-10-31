@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/commons/containers/box_container.dart';
 
 // ignore: must_be_immutable
@@ -27,6 +28,8 @@ class KeunggulanContainer extends StatelessWidget {
                 width: 60,
                 radius: 7,
                 backgroundColor: Colors.white,
+                showBorder: true,
+                borderColor: MyColors.grey,
                 child: Image(
                   image: AssetImage(image),
                   width: 40,
