@@ -29,12 +29,10 @@ class ProductController extends GetxController {
 
   togleShowListGrid() {
     showListGrid(!showListGrid.value);
-    // if (kDebugMode) {
-    //   print(showListGrid.value);
-    // }
   }
 
   void onChangeTab(int idx) {
     currentTabIndex(idx);
+    update();
   }
 }

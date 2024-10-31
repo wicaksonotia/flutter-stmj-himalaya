@@ -19,10 +19,10 @@ class _NavbarState extends State<Navbar> {
   final controller = Get.put(NavBarController());
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<NavBarController>(builder: (context) {
-      return Scaffold(
+    return Obx(
+      () => Scaffold(
         body: IndexedStack(
-          index: controller.tabIndex,
+          index: controller.tabIndex.value,
           children: const [
             HomePage(),
             ProductPage(),
@@ -34,13 +34,16 @@ class _NavbarState extends State<Navbar> {
           selectedItemColor: MyColors.primary,
           unselectedItemColor: MyColors.grey,
           backgroundColor: Colors.white,
-          currentIndex: controller.tabIndex,
-          onTap: controller.changeTabIndex,
+          currentIndex: controller.tabIndex.value,
+          onTap: (index) {
+            controller.tabIndex.value = index;
+            controller.changeTabIndex();
+          },
           items: items,
           type: BottomNavigationBarType.fixed,
         ),
-      );
-    });
+      ),
+    );
   }
 
   List<BottomNavigationBarItem> items = const [

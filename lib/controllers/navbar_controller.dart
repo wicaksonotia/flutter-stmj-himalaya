@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 
 class NavBarController extends GetxController {
-  var tabIndex = 0;
-  void changeTabIndex(int index) {
-    tabIndex = index;
+  var tabIndex = 0.obs;
+  var showButtonTogleListGrid = false.obs;
+
+  void changeTabIndex() {
+    tabIndex.value == 1
+        ? showButtonTogleListGrid.value = true
+        : showButtonTogleListGrid.value = false;
     update();
   }
 }

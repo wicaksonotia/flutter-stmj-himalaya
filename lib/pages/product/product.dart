@@ -5,6 +5,7 @@ import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/commons/containers/search_bar_container.dart';
 import 'package:sumbertugu/controllers/product_categories_controller.dart';
 import 'package:sumbertugu/controllers/product_controller.dart';
+import 'package:sumbertugu/pages/product/menu.dart';
 import 'package:sumbertugu/pages/product/product_grid_view.dart';
 import 'package:sumbertugu/pages/product/product_list_view.dart';
 
@@ -28,8 +29,6 @@ class ProductPage extends StatelessWidget {
               backgroundColor: MyColors.primary,
               flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
-                title: Text(
-                    "${productCategoriesController.indexImage.value} ===>>> ini"),
                 background: Image(
                   image: productCategoriesController
                           .productCategoryItems.isNotEmpty
@@ -47,47 +46,12 @@ class ProductPage extends StatelessWidget {
                 preferredSize: const Size.fromHeight(80),
                 child: Column(
                   children: [
-                    SearchBarContainer(),
+                    const SearchBarContainer(),
                     Container(
                       color: Colors.white.withOpacity(.8),
                       width: size.width,
                       height: size.height * 0.04,
-                      child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: productCategoriesController
-                              .productCategoryItems.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.only(
-                                  left: index == 0 ? 10 : 23, top: 7),
-                              child: GestureDetector(
-                                onTap: () {
-                                  productController.currentTabIndex.value =
-                                      index;
-                                  productController.fetchProduct();
-                                  productCategoriesController.indexImage.value =
-                                      index;
-                                },
-                                child: Text(
-                                  productCategoriesController
-                                      .productCategoryItems[index].name!,
-                                  style: TextStyle(
-                                    fontSize: productController
-                                                .currentTabIndex.value ==
-                                            index
-                                        ? 16
-                                        : 14,
-                                    fontWeight: productController
-                                                .currentTabIndex.value ==
-                                            index
-                                        ? FontWeight.w400
-                                        : FontWeight.w300,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }),
+                      child: MenuProductCatagories(),
                     ),
                   ],
                 ),
@@ -96,22 +60,11 @@ class ProductPage extends StatelessWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  // Container(
-                  //   color: MyColors.primary,
-                  //   alignment: Alignment.centerRight,
-                  //   child: IconButton(
-                  //     onPressed: () {
-                  //       productController.togleShowListGrid();
-                  //     },
-                  //     icon: Icon((productController.showListGrid.value)
-                  //         ? Icons.grid_view
-                  //         : Icons.format_list_bulleted),
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
-                  Text(
-                    "${productController.currentTabIndex} ==>>> adsad",
-                    style: const TextStyle(color: Colors.white),
+                  Visibility(
+                    visible: false,
+                    child: Text(
+                      "${productController.currentTabIndex} ${productController.showListGrid}",
+                    ),
                   ),
                   Builder(builder: (context) {
                     if (productController.showListGrid.value) {
