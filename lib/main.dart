@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:sumbertugu/routes/routes.dart';
+import 'package:sumbertugu/navigation/app_navigation.dart';
 
 void main() {
-  runApp(
-    GetMaterialApp(
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppPage.getNavbar(),
-      getPages: AppPage.routes,
-    ),
-  );
+      routerConfig: AppNavigation.router,
+    );
+  }
 }

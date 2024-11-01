@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/commons/sizes.dart';
+import 'package:sumbertugu/controllers/navbar_controller.dart';
 import 'package:sumbertugu/controllers/product_categories_controller.dart';
 import 'package:sumbertugu/controllers/product_controller.dart';
-import 'package:sumbertugu/routes/routes.dart';
 
 class ProductCategories extends StatelessWidget {
   ProductCategories({super.key});
   final ProductCategoriesController productCategoriesController =
       Get.put(ProductCategoriesController());
   final ProductController productController = Get.put(ProductController());
+  final controller = Get.put(NavBarController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -37,8 +40,11 @@ class ProductCategories extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.toNamed(AppPage.getProduct());
+                    // Get.toNamed(AppPage.getProduct());
+                    context.goNamed("product");
                     productController.currentTabIndex.value = index;
+                    controller.tabIndex.value = 1;
+                    controller.changeTabIndex();
                   },
                   child: Container(
                     width: 65,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/commons/containers/box_container.dart';
 import 'package:sumbertugu/pages/home/product_categories.dart';
@@ -47,8 +46,7 @@ class HomePage extends StatelessWidget {
                           child: Container(
                             margin: const EdgeInsets.only(top: 20),
                             // color: MyColors.red,
-                            // width: MediaQuery.sizeOf(context).width * .9,
-                            width: Get.width * .9,
+                            width: MediaQuery.sizeOf(context).width * .9,
                             child: Row(
                               children: [
                                 KeunggulanContainer(
