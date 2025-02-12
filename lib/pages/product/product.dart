@@ -62,9 +62,9 @@ class ProductPage extends StatelessWidget {
               child: Column(
                 children: [
                   Visibility(
-                    visible: false,
+                    visible: true,
                     child: Text(
-                      "${productController.currentTabIndex} ${productController.showListGrid}",
+                      "${productController.currentTabIndex} ${productController.showListGrid} ${productCategoriesController.positionedLine} ${productCategoriesController.containerWidth}",
                     ),
                   ),
                   Builder(builder: (context) {

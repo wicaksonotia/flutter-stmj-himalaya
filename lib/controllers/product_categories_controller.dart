@@ -5,6 +5,8 @@ import 'package:sumbertugu/models/category_model.dart';
 class ProductCategoriesController extends GetxController {
   var productCategoryItems = <ProductCategoriesModel>[].obs;
   var isLoading = true.obs;
+  RxDouble positionedLine = 0.0.obs;
+  RxDouble containerWidth = 80.0.obs;
 
   @override
   void onInit() {
@@ -22,5 +24,11 @@ class ProductCategoriesController extends GetxController {
     } finally {
       isLoading(false);
     }
+  }
+
+  void changePositionedOfLine(int index) async {
+    var result = await RemoteDataSource.getProductCategoriesById(index + 1);
+    positionedLine.value = double.tryParse(result!['positioned_line'])!;
+    containerWidth.value = double.tryParse(result['container_width'])!;
   }
 }

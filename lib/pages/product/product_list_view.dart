@@ -8,6 +8,7 @@ import 'package:sumbertugu/commons/colors.dart';
 import 'package:sumbertugu/commons/containers/box_container.dart';
 import 'package:sumbertugu/commons/currency.dart';
 import 'package:sumbertugu/commons/sizes.dart';
+import 'package:sumbertugu/controllers/product_categories_controller.dart';
 import 'package:sumbertugu/controllers/product_controller.dart';
 
 class ProductListView extends StatelessWidget {
@@ -16,13 +17,18 @@ class ProductListView extends StatelessWidget {
   });
 
   final ProductController controller = Get.find<ProductController>();
+  final ProductCategoriesController productCategoriesController =
+      Get.find<ProductCategoriesController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () => controller.isLoading.value
-          ? const Center(
-              child: CircularProgressIndicator(),
+          ? Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             )
           : ListView.builder(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),

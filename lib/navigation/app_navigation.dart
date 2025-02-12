@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sumbertugu/pages/home/home.dart';
 import 'package:sumbertugu/pages/product/product.dart';
 import 'package:sumbertugu/navigation/main_wrapper.dart';
+import 'package:sumbertugu/pages/profile.dart';
 
 class AppNavigation {
   static String initial = "/home";
@@ -11,6 +12,7 @@ class AppNavigation {
   static final _rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _shellNavigatorHome = GlobalKey<NavigatorState>();
   static final _shellNavigatorSettings = GlobalKey<NavigatorState>();
+  static final _shellNavigatorProfile = GlobalKey<NavigatorState>();
 
   // GoRouter configuration
   static final GoRouter router = GoRouter(
@@ -61,6 +63,19 @@ class AppNavigation {
                 name: "Products",
                 builder: (BuildContext context, GoRouterState state) =>
                     const ProductPage(),
+              ),
+            ],
+          ),
+
+          /// Product Page
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorProfile,
+            routes: <RouteBase>[
+              GoRoute(
+                path: "/profile",
+                name: "Profile",
+                builder: (BuildContext context, GoRouterState state) =>
+                    const ProfilePage(),
               ),
             ],
           ),
