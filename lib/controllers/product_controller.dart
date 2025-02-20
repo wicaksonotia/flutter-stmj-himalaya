@@ -1,6 +1,6 @@
+import 'package:esjerukkadiri/networks/api_request.dart';
 import 'package:get/get.dart';
-import 'package:sumbertugu/commons/api_request.dart';
-import 'package:sumbertugu/models/product_model.dart';
+import 'package:esjerukkadiri/models/product_model.dart';
 
 class ProductController extends GetxController {
   var productItems = <ProductModel>[].obs;
@@ -18,7 +18,7 @@ class ProductController extends GetxController {
     currentTabIndex.refresh();
     try {
       isLoading(true);
-      var result = await RemoteDataSource.getProduct(currentTabIndex.value + 1);
+      var result = await RemoteDataSource.getProduct();
       if (result != null) {
         productItems.assignAll(result);
       }
@@ -27,7 +27,7 @@ class ProductController extends GetxController {
     }
   }
 
-  togleShowListGrid() {
+  toggleShowListGrid() {
     showListGrid(!showListGrid.value);
   }
 

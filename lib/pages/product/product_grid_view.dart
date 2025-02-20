@@ -4,11 +4,11 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:sumbertugu/commons/colors.dart';
-import 'package:sumbertugu/commons/containers/box_container.dart';
-import 'package:sumbertugu/commons/currency.dart';
-import 'package:sumbertugu/commons/sizes.dart';
-import 'package:sumbertugu/controllers/product_controller.dart';
+import 'package:esjerukkadiri/commons/colors.dart';
+import 'package:esjerukkadiri/commons/containers/box_container.dart';
+import 'package:esjerukkadiri/commons/currency.dart';
+import 'package:esjerukkadiri/commons/sizes.dart';
+import 'package:esjerukkadiri/controllers/product_controller.dart';
 
 class ProductGridView extends StatelessWidget {
   ProductGridView({
@@ -63,14 +63,14 @@ class ProductGridView extends StatelessWidget {
                             height: 100,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(7),
-                              //   // image: DecorationImage(
-                              //   //   image: MemoryImage(decodePhoto),
-                              //   //   fit: BoxFit.cover,
-                              //   // ),
-                              image: const DecorationImage(
-                                image: AssetImage('assets/images/kecap2.png'),
+                              image: DecorationImage(
+                                image: MemoryImage(decodePhoto),
                                 fit: BoxFit.cover,
                               ),
+                              // image: const DecorationImage(
+                              //   image: AssetImage('assets/images/kecap2.png'),
+                              //   fit: BoxFit.cover,
+                              // ),
                             ),
                           ),
                         ),
@@ -90,73 +90,50 @@ class ProductGridView extends StatelessWidget {
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const Gap(7),
+                        const Gap(10),
                         Row(
                           children: [
-                            BoxContainer(
-                              backgroundColor: Colors.yellow.shade100,
-                              shadow: false,
-                              showBorder: true,
-                              borderColor: Colors.orange.shade100,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 5),
-                              radius: 3,
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.star,
-                                    color: Colors.yellow.shade800,
-                                    size: MySizes.iconXs,
-                                  ),
-                                  const SizedBox(
-                                    width: 3,
-                                  ),
-                                  const Text(
-                                    '4.9 ',
-                                    style: TextStyle(
-                                      fontSize: MySizes.fontSizeXsm,
-                                    ),
-                                  ),
-                                ],
+                            const Text(
+                              'Rp',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: MySizes.fontSizeMd,
+                                color: MyColors.primary,
                               ),
                             ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.verified,
-                              color: MyColors.green,
-                              size: MySizes.iconXs,
-                            ),
                             Text(
-                              '1rb+ terjual',
-                              style: Theme.of(context).textTheme.labelSmall,
-                            )
+                              CurrencyFormat.convertToIdr(dataPrice, 0),
+                              style: const TextStyle(
+                                fontSize: MySizes.fontSizeXl,
+                                fontWeight: FontWeight.bold,
+                                color: MyColors.primary,
+                              ),
+                            ),
                           ],
                         ),
+                        Center(
+                          child: Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.remove_circle),
+                                color: MyColors.red,
+                              ),
+                              const Text(
+                                "0",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(fontSize: MySizes.fontSizeMd),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.add_circle),
+                                color: MyColors.green,
+                              ),
+                            ],
+                          ),
+                        )
                       ],
-                    ),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Row(
-                        children: [
-                          const Text(
-                            'Rp',
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: MySizes.fontSizeMd,
-                              color: MyColors.primary,
-                            ),
-                          ),
-                          Text(
-                            CurrencyFormat.convertToIdr(dataPrice, 0),
-                            style: const TextStyle(
-                              fontSize: MySizes.fontSizeXl,
-                              fontWeight: FontWeight.bold,
-                              color: MyColors.primary,
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),

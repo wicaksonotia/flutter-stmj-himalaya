@@ -1,5 +1,5 @@
+import 'package:esjerukkadiri/commons/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:sumbertugu/commons/sizes.dart';
 
 class BoxContainer extends StatelessWidget {
   const BoxContainer(

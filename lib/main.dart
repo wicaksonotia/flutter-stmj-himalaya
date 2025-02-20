@@ -1,7 +1,10 @@
+import 'package:esjerukkadiri/bindings/initial_binding.dart';
 import 'package:flutter/material.dart';
-import 'package:sumbertugu/navigation/app_navigation.dart';
+import 'package:esjerukkadiri/navigation/app_navigation.dart';
+import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -10,9 +13,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return GetMaterialApp(
+      initialBinding: InitialBinding(),
+      getPages: RouterClass.routes,
+      defaultTransition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
-      routerConfig: AppNavigation.router,
+      initialRoute: RouterClass.product,
     );
   }
 }
