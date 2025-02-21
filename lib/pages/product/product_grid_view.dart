@@ -10,6 +10,7 @@ import 'package:esjerukkadiri/commons/containers/box_container.dart';
 import 'package:esjerukkadiri/commons/currency.dart';
 import 'package:esjerukkadiri/commons/sizes.dart';
 import 'package:esjerukkadiri/controllers/product_controller.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductGridView extends StatelessWidget {
   ProductGridView({
@@ -43,39 +44,59 @@ class ProductGridView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Center(
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 5),
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10),
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 5),
+                              width: 100,
+                              height: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                           ),
                         ),
                         const Gap(10),
-                        Container(
-                          width: double.infinity,
-                          height: 20,
-                          color: Colors.grey[300],
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: double.infinity,
+                            height: 20,
+                            color: Colors.grey[300],
+                          ),
                         ),
                         const Gap(10),
-                        Container(
-                          width: double.infinity,
-                          height: 40,
-                          color: Colors.grey[300],
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: double.infinity,
+                            height: 40,
+                            color: Colors.grey[300],
+                          ),
                         ),
                         const Gap(10),
-                        Container(
-                          width: 80,
-                          height: 20,
-                          color: Colors.grey[300],
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: 80,
+                            height: 20,
+                            color: Colors.grey[300],
+                          ),
                         ),
                         const Gap(10),
-                        Container(
-                          width: 100,
-                          height: 40,
-                          color: Colors.grey[300],
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: 100,
+                            height: 40,
+                            color: Colors.grey[300],
+                          ),
                         ),
                       ],
                     ),

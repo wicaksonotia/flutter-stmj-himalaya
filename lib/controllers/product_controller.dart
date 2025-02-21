@@ -6,7 +6,7 @@ class ProductController extends GetxController {
   var productItems = <ProductModel>[].obs;
   var isLoading = true.obs;
   RxInt currentTabIndex = 0.obs;
-  var showListGrid = true.obs;
+  var showListGrid = false.obs;
 
   @override
   void onInit() {
