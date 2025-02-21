@@ -1,6 +1,8 @@
 import 'package:esjerukkadiri/commons/containers/box_container.dart';
 import 'package:esjerukkadiri/commons/currency.dart';
 import 'package:esjerukkadiri/commons/sizes.dart';
+import 'package:esjerukkadiri/controllers/cart_controller.dart';
+import 'package:esjerukkadiri/pages/product/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:esjerukkadiri/commons/colors.dart';
@@ -15,6 +17,7 @@ class ProductPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ProductController productController = Get.find<ProductController>();
+    final CartController cartController = Get.find<CartController>();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -47,70 +50,15 @@ class ProductPage extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           Get.bottomSheet(
-                            Container(
-                              height: Get.height,
-                              child: Material(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  topRight: Radius.circular(10),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: EdgeInsets.only(top: 5),
-                                      height: 5,
-                                      width: Get.width / 3,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[300],
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.all(16),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          topRight: Radius.circular(20),
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            'Tia Wicaksono',
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          SizedBox(height: 10),
-                                          Text(
-                                            'This is a bottom sheet example.',
-                                            style: TextStyle(fontSize: 16),
-                                          ),
-                                          SizedBox(height: 20),
-                                          ElevatedButton(
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            child: Text('Close'),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            CartPage(),
                           );
                         },
                         child: Row(
                           children: [
-                            const badges.Badge(
+                            badges.Badge(
                               badgeContent: Text(
-                                '2',
+                                cartController.totalAllQuantity.value
+                                    .toString(),
                                 style: TextStyle(color: Colors.white),
                               ),
                               badgeAnimation: badges.BadgeAnimation.fade(
@@ -151,13 +99,6 @@ class ProductPage extends StatelessWidget {
                         icon: const Icon(Icons.save),
                         color: MyColors.green,
                       ),
-                      // Text(
-                      //   'Save',
-                      //   style: const TextStyle(
-                      //     color: Colors.white,
-                      //     fontSize: 16,
-                      //   ),
-                      // ),
                       IconButton(
                         onPressed: () {
                           productController.toggleShowListGrid();
@@ -167,15 +108,6 @@ class ProductPage extends StatelessWidget {
                             : Icons.format_list_bulleted_rounded),
                         color: MyColors.green,
                       ),
-                      // Text(
-                      //   (productController.showListGrid.value)
-                      //       ? 'Grid View'
-                      //       : 'List View',
-                      //   style: const TextStyle(
-                      //     color: Colors.white,
-                      //     fontSize: 16,
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),

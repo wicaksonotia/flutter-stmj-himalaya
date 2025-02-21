@@ -26,14 +26,14 @@ class IncrementAndDecrement extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GestureDetector(
+            InkWell(
               onTap: () {
                 cartController.decrementProductQuantity(dataIdProduct);
               },
               child: const Icon(
                 Icons.remove,
                 color: Colors.white,
-                size: 16,
+                size: 18,
               ),
             ),
             Container(
@@ -44,10 +44,7 @@ class IncrementAndDecrement extends StatelessWidget {
                   borderRadius: BorderRadius.circular(3), color: Colors.white),
               child: Center(
                 child: Text(
-                  cartController.cartList
-                          .any((element) => element.idProduct == dataIdProduct)
-                      ? '${cartController.cartList.firstWhere((element) => element.idProduct == dataIdProduct).quantity}'
-                      : "0",
+                  cartController.getProductQuantity(dataIdProduct).toString(),
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                     fontSize: 18,
@@ -57,50 +54,19 @@ class IncrementAndDecrement extends StatelessWidget {
                 ),
               ),
             ),
-            GestureDetector(
+            InkWell(
               onTap: () {
                 cartController.incrementProductQuantity(dataIdProduct);
               },
               child: Icon(
                 Icons.add,
                 color: Colors.white,
-                size: 16,
+                size: 18,
               ),
             ),
           ],
         ),
       ),
-      // Container(
-      //   width: MediaQuery.of(context).size.width * 0.35,
-      //   child: Row(
-      //     children: [
-      //       IconButton(
-      //         onPressed: () {
-      //           cartController.decrementProductQuantity(dataIdProduct);
-      //         },
-      //         icon: const Icon(Icons.remove_circle),
-      //         color: MyColors.red,
-      //       ),
-      //       const Spacer(),
-      //       Text(
-      //         cartController.cartList
-      //                 .any((element) => element.idProduct == dataIdProduct)
-      //             ? '${cartController.cartList.firstWhere((element) => element.idProduct == dataIdProduct).quantity}'
-      //             : "0",
-      //         textAlign: TextAlign.left,
-      //         style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      //       ),
-      //       const Spacer(),
-      //       IconButton(
-      //         onPressed: () {
-      //           cartController.incrementProductQuantity(dataIdProduct);
-      //         },
-      //         icon: const Icon(Icons.add_circle),
-      //         color: MyColors.green,
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
