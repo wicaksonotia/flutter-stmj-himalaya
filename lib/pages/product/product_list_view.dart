@@ -1,3 +1,4 @@
+import 'package:esjerukkadiri/pages/product/increment_and_decrement.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -18,11 +19,60 @@ class ProductListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => controller.isLoading.value
-          ? Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
+          ? ListView.builder(
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+              scrollDirection: Axis.vertical,
+              physics: const BouncingScrollPhysics(),
+              itemCount: 6,
+              shrinkWrap: true,
+              itemBuilder: (_, index) {
+                return BoxContainer(
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.all(5),
+                  shadow: true,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(right: 5),
+                        width: 100,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 20,
+                                color: Colors.grey[300],
+                              ),
+                              const Gap(5),
+                              Container(
+                                width: double.infinity,
+                                height: 15,
+                                color: Colors.grey[300],
+                              ),
+                              const Gap(5),
+                              Container(
+                                width: 100,
+                                height: 20,
+                                color: Colors.grey[300],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
             )
           : ListView.builder(
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
@@ -31,6 +81,7 @@ class ProductListView extends StatelessWidget {
               itemCount: controller.productItems.length,
               shrinkWrap: true,
               itemBuilder: (_, index) {
+                var dataIdProduct = controller.productItems[index].idProduct!;
                 var dataProductName =
                     controller.productItems[index].productName!;
                 var dataDescription =
@@ -48,14 +99,9 @@ class ProductListView extends StatelessWidget {
                         margin: const EdgeInsets.only(right: 5),
                         width: 100,
                         height: 100,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
-                          //   // image: DecorationImage(
-                          //   //   image: MemoryImage(decodePhoto),
-                          //   //   fit: BoxFit.cover,
-                          //   // ),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/images/kecap2.png'),
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/orange_ice.jpg'),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -72,6 +118,7 @@ class ProductListView extends StatelessWidget {
                                     fontSize: MySizes.fontSizeLg,
                                     fontWeight: FontWeight.bold),
                               ),
+                              const Gap(5),
                               Text(
                                 dataDescription,
                                 style: const TextStyle(
@@ -80,7 +127,6 @@ class ProductListView extends StatelessWidget {
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              const Gap(10),
                               Row(
                                 children: [
                                   Row(
@@ -106,26 +152,8 @@ class ProductListView extends StatelessWidget {
                                     ],
                                   ),
                                   const Spacer(),
-                                  Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.remove_circle),
-                                        color: MyColors.red,
-                                      ),
-                                      const Text(
-                                        "0",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                            fontSize: MySizes.fontSizeMd),
-                                      ),
-                                      IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.add_circle),
-                                        color: MyColors.green,
-                                      ),
-                                    ],
-                                  )
+                                  IncrementAndDecrement(
+                                      dataIdProduct: dataIdProduct)
                                 ],
                               ),
                             ],

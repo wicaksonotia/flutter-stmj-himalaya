@@ -1,6 +1,7 @@
-import 'dart:convert';
-import 'dart:typed_data';
+// import 'dart:convert';
+// import 'dart:typed_data';
 
+import 'package:esjerukkadiri/pages/product/increment_and_decrement.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -19,11 +20,69 @@ class ProductGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => controller.isLoading.value
-        ? Container(
-            margin: const EdgeInsets.only(top: 10),
-            child: const Center(
-              child: CircularProgressIndicator(),
+        ? GridView.builder(
+            padding: const EdgeInsets.all(10),
+            scrollDirection: Axis.vertical,
+            physics: const BouncingScrollPhysics(),
+            itemCount: 6, // Number of shimmer items
+            shrinkWrap: true,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              mainAxisExtent: 290,
             ),
+            itemBuilder: (_, index) {
+              return BoxContainer(
+                height: 290,
+                padding: const EdgeInsets.all(10),
+                shadow: true,
+                child: Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 5),
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                        ),
+                        const Gap(10),
+                        Container(
+                          width: double.infinity,
+                          height: 20,
+                          color: Colors.grey[300],
+                        ),
+                        const Gap(10),
+                        Container(
+                          width: double.infinity,
+                          height: 40,
+                          color: Colors.grey[300],
+                        ),
+                        const Gap(10),
+                        Container(
+                          width: 80,
+                          height: 20,
+                          color: Colors.grey[300],
+                        ),
+                        const Gap(10),
+                        Container(
+                          width: 100,
+                          height: 40,
+                          color: Colors.grey[300],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
           )
         : GridView.builder(
             padding: const EdgeInsets.all(10),
@@ -39,12 +98,13 @@ class ProductGridView extends StatelessWidget {
               mainAxisExtent: 290,
             ),
             itemBuilder: (_, index) {
+              var dataIdProduct = controller.productItems[index].idProduct!;
               var dataProductName = controller.productItems[index].productName!;
               var dataDescription = controller.productItems[index].description!;
               var dataPrice = controller.productItems[index].price!;
-              Uint8List decodePhoto;
-              decodePhoto = const Base64Decoder()
-                  .convert(controller.productItems[index].photo1!);
+              // Uint8List decodePhoto;
+              // decodePhoto = const Base64Decoder()
+              //     .convert(controller.productItems[index].photo1!);
 
               return BoxContainer(
                 height: 290,
@@ -61,16 +121,16 @@ class ProductGridView extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 5),
                             width: 100,
                             height: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(7),
-                              image: DecorationImage(
-                                image: MemoryImage(decodePhoto),
-                                fit: BoxFit.cover,
-                              ),
-                              // image: const DecorationImage(
-                              //   image: AssetImage('assets/images/kecap2.png'),
+                            decoration: const BoxDecoration(
+                              // image: DecorationImage(
+                              //   image: MemoryImage(decodePhoto),
                               //   fit: BoxFit.cover,
                               // ),
+                              image: DecorationImage(
+                                image:
+                                    AssetImage('assets/images/orange_ice.jpg'),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -113,25 +173,8 @@ class ProductGridView extends StatelessWidget {
                           ],
                         ),
                         Center(
-                          child: Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.remove_circle),
-                                color: MyColors.red,
-                              ),
-                              const Text(
-                                "0",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(fontSize: MySizes.fontSizeMd),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(Icons.add_circle),
-                                color: MyColors.green,
-                              ),
-                            ],
-                          ),
+                          child: IncrementAndDecrement(
+                              dataIdProduct: dataIdProduct),
                         )
                       ],
                     ),
