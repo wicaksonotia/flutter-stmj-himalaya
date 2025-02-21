@@ -171,7 +171,7 @@ class ProductGridView extends StatelessWidget {
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        const Gap(10),
+                        const Gap(5),
                         Row(
                           children: [
                             const Text(
@@ -180,7 +180,7 @@ class ProductGridView extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: MySizes.fontSizeMd,
-                                color: MyColors.primary,
+                                color: MyColors.green,
                               ),
                             ),
                             Text(
@@ -188,11 +188,12 @@ class ProductGridView extends StatelessWidget {
                               style: const TextStyle(
                                 fontSize: MySizes.fontSizeXl,
                                 fontWeight: FontWeight.bold,
-                                color: MyColors.primary,
+                                color: MyColors.green,
                               ),
                             ),
                           ],
                         ),
+                        const Gap(10),
                         Center(
                           child: IncrementAndDecrement(
                               dataIdProduct: dataIdProduct),

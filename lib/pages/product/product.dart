@@ -22,7 +22,7 @@ class ProductPage extends StatelessWidget {
         slivers: [
           const SliverAppBar(
             // title: SearchBarContainer(),
-            backgroundColor: Colors.white,
+            backgroundColor: MyColors.primary,
             flexibleSpace: FlexibleSpaceBar(
                 collapseMode: CollapseMode.parallax,
                 background: Image(
@@ -30,7 +30,7 @@ class ProductPage extends StatelessWidget {
                   fit: BoxFit.cover,
                 )),
             pinned: true,
-            expandedHeight: 170,
+            expandedHeight: 130,
             collapsedHeight: 35,
             toolbarHeight: 30,
           ),
@@ -148,7 +148,7 @@ class ProductPage extends StatelessWidget {
                       const Spacer(),
                       IconButton(
                         onPressed: () {},
-                        icon: Icon(Icons.save),
+                        icon: const Icon(Icons.save),
                         color: MyColors.green,
                       ),
                       // Text(
@@ -165,7 +165,7 @@ class ProductPage extends StatelessWidget {
                         icon: Icon((productController.showListGrid.value)
                             ? Icons.grid_view_rounded
                             : Icons.format_list_bulleted_rounded),
-                        color: MyColors.primary,
+                        color: MyColors.green,
                       ),
                       // Text(
                       //   (productController.showListGrid.value)

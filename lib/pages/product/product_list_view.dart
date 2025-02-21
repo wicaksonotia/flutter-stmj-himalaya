@@ -163,7 +163,7 @@ class ProductListView extends StatelessWidget {
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
                                           fontSize: MySizes.fontSizeMd,
-                                          color: MyColors.primary,
+                                          color: MyColors.green,
                                         ),
                                       ),
                                       Text(
@@ -172,7 +172,7 @@ class ProductListView extends StatelessWidget {
                                         style: const TextStyle(
                                           fontSize: MySizes.fontSizeXl,
                                           fontWeight: FontWeight.bold,
-                                          color: MyColors.primary,
+                                          color: MyColors.green,
                                         ),
                                       ),
                                     ],
