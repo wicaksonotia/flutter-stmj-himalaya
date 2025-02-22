@@ -73,21 +73,24 @@ class ProductPage extends StatelessWidget {
                             const SizedBox(
                               width: 20,
                             ),
-                            const Text(
-                              'Rp',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: MySizes.fontSizeMd,
-                                color: MyColors.primary,
-                              ),
-                            ),
-                            Text(
-                              CurrencyFormat.convertToIdr(1234567, 0),
-                              style: const TextStyle(
-                                fontSize: MySizes.fontSizeXl,
-                                fontWeight: FontWeight.bold,
-                                color: MyColors.primary,
+                            RichText(
+                              text: TextSpan(
+                                text: 'Rp ',
+                                style: TextStyle(
+                                  fontSize: MySizes.fontSizeMd,
+                                  color: MyColors.primary,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: CurrencyFormat.convertToIdr(
+                                        cartController.totalPrice.value, 0),
+                                    style: const TextStyle(
+                                      fontSize: MySizes.fontSizeXl,
+                                      color: MyColors.primary,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

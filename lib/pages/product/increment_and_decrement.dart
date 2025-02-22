@@ -7,10 +7,12 @@ class IncrementAndDecrement extends StatelessWidget {
   IncrementAndDecrement({
     super.key,
     required this.dataIdProduct,
+    required this.dataPrice,
   });
 
   final CartController cartController = Get.find<CartController>();
   final int dataIdProduct;
+  final int dataPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,8 @@ class IncrementAndDecrement extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                cartController.decrementProductQuantity(dataIdProduct);
+                cartController.decrementProductQuantity(
+                    dataIdProduct, dataPrice);
               },
               child: const Icon(
                 Icons.remove,
@@ -56,7 +59,8 @@ class IncrementAndDecrement extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                cartController.incrementProductQuantity(dataIdProduct);
+                cartController.incrementProductQuantity(
+                    dataIdProduct, dataPrice);
               },
               child: Icon(
                 Icons.add,

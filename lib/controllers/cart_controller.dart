@@ -8,7 +8,7 @@ class CartController extends GetxController {
   var totalPrice = 0.obs;
   var totalAllQuantity = 0.obs;
 
-  void incrementProductQuantity(int idProduct) {
+  void incrementProductQuantity(int idProduct, int price) {
     if (cartList
         .where((element) => element.idProduct == idProduct)
         .isNotEmpty) {
@@ -24,24 +24,35 @@ class CartController extends GetxController {
       ));
     }
     totalAllQuantity++;
+    totalPrice.value += price;
     print("totalAllQuantity: $totalAllQuantity");
     update();
   }
 
-  void decrementProductQuantity(int idProduct) {
+  void decrementProductQuantity(int idProduct, int price) {
     var index =
         cartList.indexWhere((element) => element.idProduct == idProduct);
-    if (cartList[index].quantity > 0) {
-      cartList[index].quantity--;
-      totalAllQuantity--;
-      print("totalQuantity: ${cartList[index].quantity}");
-    } else {
-      cartList.removeAt(index);
+    if (index >= 0) {
+      if (cartList[index].quantity > 0) {
+        cartList[index].quantity--;
+        totalAllQuantity--;
+        totalPrice.value -= price;
+        // print("totalQuantity: ${cartList[index].quantity}");
+      } else {
+        cartList.removeAt(index);
+      }
     }
     print("totalAllQuantity: $totalAllQuantity");
 
     update();
   }
+
+  // void totalPriceCart() {
+  //   for (var i = 0; i < cartList.length; i++) {
+  //     totalPrice.value = totalPrice.value +
+  //         (cartList[i].quantity * (cartList[i].productModel.price ?? 0));
+  //   }
+  // }
 
   int getProductQuantity(int idProduct) {
     var index =

@@ -179,7 +179,8 @@ class ProductGridView extends StatelessWidget {
                         const Gap(10),
                         Center(
                           child: IncrementAndDecrement(
-                              dataIdProduct: dataIdProduct),
+                              dataIdProduct: dataIdProduct,
+                              dataPrice: dataPrice),
                         )
                       ],
                     ),

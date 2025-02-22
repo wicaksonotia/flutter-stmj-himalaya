@@ -157,7 +157,8 @@ class ProductListView extends StatelessWidget {
                                   ProductPrice(dataPrice: dataPrice),
                                   const Spacer(),
                                   IncrementAndDecrement(
-                                      dataIdProduct: dataIdProduct)
+                                      dataIdProduct: dataIdProduct,
+                                      dataPrice: dataPrice),
                                 ],
                               ),
                             ],
