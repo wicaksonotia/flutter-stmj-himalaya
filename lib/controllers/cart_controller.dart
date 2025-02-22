@@ -8,63 +8,41 @@ class CartController extends GetxController {
   var totalPrice = 0.obs;
   var totalAllQuantity = 0.obs;
 
-  void incrementProductQuantity(int idProduct, int price) {
+  void incrementProductQuantity(ProductModel dataProduct) {
     if (cartList
-        .where((element) => element.idProduct == idProduct)
+        .where((element) => element.idProduct == dataProduct.idProduct)
         .isNotEmpty) {
-      var index =
-          cartList.indexWhere((element) => element.idProduct == idProduct);
+      var index = cartList
+          .indexWhere((element) => element.idProduct == dataProduct.idProduct);
       cartList[index].quantity++;
       print("totalQuantity: ${cartList[index].quantity}");
     } else {
       cartList.add(CartModel(
-        productModel: ProductModel(idProduct: idProduct),
-        idProduct: idProduct,
+        productModel: dataProduct,
+        idProduct: dataProduct.idProduct!,
         quantity: 1,
       ));
     }
     totalAllQuantity++;
-    totalPrice.value += price;
-    print("totalAllQuantity: $totalAllQuantity");
+    totalPrice.value += dataProduct.price!;
     update();
   }
 
-  void decrementProductQuantity(int idProduct, int price) {
-    var index =
-        cartList.indexWhere((element) => element.idProduct == idProduct);
+  void decrementProductQuantity(ProductModel dataProduct) {
+    var index = cartList
+        .indexWhere((element) => element.idProduct == dataProduct.idProduct);
     if (index >= 0) {
       if (cartList[index].quantity > 0) {
         cartList[index].quantity--;
         totalAllQuantity--;
-        totalPrice.value -= price;
-        // print("totalQuantity: ${cartList[index].quantity}");
+        totalPrice.value -= dataProduct.price!;
+        print("totalQuantity: ${cartList[index].quantity}");
       } else {
         cartList.removeAt(index);
       }
     }
-    print("totalAllQuantity: $totalAllQuantity");
 
     update();
-  }
-
-  // void totalPriceCart() {
-  //   for (var i = 0; i < cartList.length; i++) {
-  //     totalPrice.value = totalPrice.value +
-  //         (cartList[i].quantity * (cartList[i].productModel.price ?? 0));
-  //   }
-  // }
-
-  int getProductQuantity(int idProduct) {
-    var index =
-        cartList.indexWhere((element) => element.idProduct == idProduct);
-    if (index >= 0) {
-      //   print("totalQuantity: ${cartList[index].quantity}");
-      return cartList[index].quantity;
-    } else {
-      // print("totalQuantity: 0");
-      return 0;
-    }
-    // print("total: ${cartList.length}");
   }
 
   void addProductToCart(ProductModel productModel) {
@@ -90,5 +68,15 @@ class CartController extends GetxController {
     totalPrice.value =
         totalPrice.value + (productModel.price! * numberOfItems.value);
     numberOfItems.value = 1;
+  }
+
+  getProductQuantity(ProductModel dataProduct) {
+    var index = cartList
+        .indexWhere((element) => element.idProduct == dataProduct.idProduct);
+    if (index >= 0) {
+      return cartList[index].quantity;
+    } else {
+      return 0;
+    }
   }
 }

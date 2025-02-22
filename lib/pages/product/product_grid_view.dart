@@ -118,7 +118,7 @@ class ProductGridView extends StatelessWidget {
               mainAxisExtent: 290,
             ),
             itemBuilder: (_, index) {
-              var dataIdProduct = controller.productItems[index].idProduct!;
+              // var dataIdProduct = controller.productItems[index].idProduct!;
               var dataProductName = controller.productItems[index].productName!;
               var dataDescription = controller.productItems[index].description!;
               var dataPrice = controller.productItems[index].price!;
@@ -179,8 +179,7 @@ class ProductGridView extends StatelessWidget {
                         const Gap(10),
                         Center(
                           child: IncrementAndDecrement(
-                              dataIdProduct: dataIdProduct,
-                              dataPrice: dataPrice),
+                              dataProduct: controller.productItems[index]),
                         )
                       ],
                     ),

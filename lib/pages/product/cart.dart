@@ -10,10 +10,11 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final CartController cartController = Get.find<CartController>();
-    return Container(
-      height: Get.height,
+    var size = MediaQuery.of(context).size;
+    return SizedBox(
+      height: size.height,
       child: Material(
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),
@@ -22,7 +23,7 @@ class CartPage extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 5),
               height: 5,
-              width: Get.width / 3,
+              width: size.width / 3,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
                 borderRadius: BorderRadius.circular(100),

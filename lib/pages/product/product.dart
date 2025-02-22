@@ -55,10 +55,29 @@ class ProductPage extends StatelessWidget {
                         },
                         child: Row(
                           children: [
+                            badges.Badge(
+                              badgeContent: Text(
+                                cartController.totalAllQuantity.value
+                                    .toString(),
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              badgeAnimation: const badges.BadgeAnimation.fade(
+                                  animationDuration:
+                                      Duration(milliseconds: 400)),
+                              child: const Icon(
+                                Icons.shopping_bag,
+                                color: MyColors.green,
+                                size: 30,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            verticalSeparator(),
                             RichText(
                               text: TextSpan(
                                 text: 'Rp ',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: MySizes.fontSizeMd,
                                   color: MyColors.primary,
                                 ),
@@ -79,21 +98,6 @@ class ProductPage extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      verticalSeparator(),
-                      badges.Badge(
-                        badgeContent: Text(
-                          cartController.totalAllQuantity.value.toString(),
-                          style: TextStyle(color: Colors.white),
-                        ),
-                        badgeAnimation: badges.BadgeAnimation.fade(
-                            animationDuration: Duration(milliseconds: 400)),
-                        child: Icon(
-                          Icons.shopping_bag,
-                          color: MyColors.green,
-                          size: 30,
-                        ),
-                      ),
-                      verticalSeparator(),
                       IconButton(
                         padding: EdgeInsets.zero,
                         iconSize: 30,

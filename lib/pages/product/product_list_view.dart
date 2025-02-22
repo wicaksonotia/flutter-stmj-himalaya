@@ -106,7 +106,7 @@ class ProductListView extends StatelessWidget {
               itemCount: controller.productItems.length,
               shrinkWrap: true,
               itemBuilder: (_, index) {
-                var dataIdProduct = controller.productItems[index].idProduct!;
+                // var dataIdProduct = controller.productItems[index].idProduct!;
                 var dataProductName =
                     controller.productItems[index].productName!;
                 var dataDescription =
@@ -157,8 +157,8 @@ class ProductListView extends StatelessWidget {
                                   ProductPrice(dataPrice: dataPrice),
                                   const Spacer(),
                                   IncrementAndDecrement(
-                                      dataIdProduct: dataIdProduct,
-                                      dataPrice: dataPrice),
+                                      dataProduct:
+                                          controller.productItems[index]),
                                 ],
                               ),
                             ],
