@@ -19,7 +19,7 @@ class IncrementAndDecrement extends StatelessWidget {
     return Obx(
       () => Container(
         height: 35,
-        width: Get.width * 0.3,
+        // width: Get.width * 0.3,
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
           color: MyColors.primary,
@@ -28,21 +28,23 @@ class IncrementAndDecrement extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            InkWell(
-              onTap: () {
+            IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              iconSize: 20.0, // desired size
+              onPressed: () {
                 cartController.decrementProductQuantity(
                     dataIdProduct, dataPrice);
               },
-              child: const Icon(
+              icon: const Icon(
                 Icons.remove,
                 color: Colors.white,
-                size: 18,
               ),
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 3),
               padding: EdgeInsets.symmetric(horizontal: 3, vertical: 2),
-              width: Get.width * 0.1,
+              width: Get.width * 0.12,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(3), color: Colors.white),
               child: Center(
@@ -57,15 +59,17 @@ class IncrementAndDecrement extends StatelessWidget {
                 ),
               ),
             ),
-            InkWell(
-              onTap: () {
+            IconButton(
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              iconSize: 20.0, // desired size
+              onPressed: () {
                 cartController.incrementProductQuantity(
                     dataIdProduct, dataPrice);
               },
-              child: Icon(
+              icon: const Icon(
                 Icons.add,
                 color: Colors.white,
-                size: 18,
               ),
             ),
           ],

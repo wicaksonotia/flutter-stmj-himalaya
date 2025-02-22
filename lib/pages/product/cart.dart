@@ -39,24 +39,24 @@ class CartPage extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  ListView.builder(
-                    itemCount: cartController.cartList.length,
-                    itemBuilder: (_, index) {
-                      final cart = cartController.cartList[index];
-                      return ListTile(
-                        title: Text(cart.productModel.productName!),
-                        subtitle: Text(
-                          'Rp ${cart.productModel.price}',
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(cart.quantity.toString()),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  // ListView.builder(
+                  //   itemCount: cartController.cartList.length,
+                  //   itemBuilder: (_, index) {
+                  //     final cart = cartController.cartList[index];
+                  //     return ListTile(
+                  //       title: Text(cart.productModel.productName!),
+                  //       subtitle: Text(
+                  //         'Rp ${cart.productModel.price}',
+                  //       ),
+                  //       trailing: Row(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         children: [
+                  //           Text(cart.quantity.toString()),
+                  //         ],
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                 ],
               ),
             ),

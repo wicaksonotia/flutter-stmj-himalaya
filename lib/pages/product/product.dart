@@ -55,24 +55,6 @@ class ProductPage extends StatelessWidget {
                         },
                         child: Row(
                           children: [
-                            badges.Badge(
-                              badgeContent: Text(
-                                cartController.totalAllQuantity.value
-                                    .toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              badgeAnimation: badges.BadgeAnimation.fade(
-                                  animationDuration:
-                                      Duration(milliseconds: 400)),
-                              child: Icon(
-                                Icons.shopping_bag,
-                                color: MyColors.green,
-                                size: 30,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20,
-                            ),
                             RichText(
                               text: TextSpan(
                                 text: 'Rp ',
@@ -97,12 +79,32 @@ class ProductPage extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
+                      verticalSeparator(),
+                      badges.Badge(
+                        badgeContent: Text(
+                          cartController.totalAllQuantity.value.toString(),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        badgeAnimation: badges.BadgeAnimation.fade(
+                            animationDuration: Duration(milliseconds: 400)),
+                        child: Icon(
+                          Icons.shopping_bag,
+                          color: MyColors.green,
+                          size: 30,
+                        ),
+                      ),
+                      verticalSeparator(),
                       IconButton(
+                        padding: EdgeInsets.zero,
+                        iconSize: 30,
                         onPressed: () {},
                         icon: const Icon(Icons.save),
                         color: MyColors.green,
                       ),
+                      verticalSeparator(),
                       IconButton(
+                        padding: EdgeInsets.zero,
+                        iconSize: 30,
                         onPressed: () {
                           productController.toggleShowListGrid();
                         },
@@ -133,6 +135,14 @@ class ProductPage extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+
+  VerticalDivider verticalSeparator() {
+    return VerticalDivider(
+      color: Colors.grey[300],
+      thickness: 1,
+      width: 20,
     );
   }
 }
