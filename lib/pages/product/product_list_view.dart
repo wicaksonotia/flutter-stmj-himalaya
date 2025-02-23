@@ -149,9 +149,10 @@ class ProductListView extends StatelessWidget {
                                 style: const TextStyle(
                                     fontSize: MySizes.fontSizeSm,
                                     color: Colors.black54),
-                                maxLines: 3,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                               ),
+                              const Gap(10),
                               Row(
                                 children: [
                                   ProductPrice(dataPrice: dataPrice),

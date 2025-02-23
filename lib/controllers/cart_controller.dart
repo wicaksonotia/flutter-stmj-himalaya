@@ -63,6 +63,15 @@ class CartController extends GetxController {
     update();
   }
 
+  void removeData(String idProduct) {
+    var index =
+        cartList.indexWhere((element) => element.idProduct == idProduct);
+    if (index >= 0) {
+      cartList.removeAt(index);
+    }
+    update();
+  }
+
   getProductQuantity(ProductModel dataProduct) {
     var index = cartList
         .indexWhere((element) => element.idProduct == dataProduct.idProduct);
