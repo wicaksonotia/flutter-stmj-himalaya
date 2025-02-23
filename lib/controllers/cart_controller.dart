@@ -45,29 +45,22 @@ class CartController extends GetxController {
     update();
   }
 
-  void addProductToCart(ProductModel productModel) {
-    final index = cartList
-        .indexWhere((element) => element.idProduct == productModel.idProduct);
+  void listCart() {
+    cartList.forEach((element) {
+      print("idProduct: ${element.idProduct}");
+      print("quantity: ${element.quantity}");
+    });
+  }
 
-    // if product is exist in cartList, increment the quantity
-    if (index > 0) {
-      cartList[index] = CartModel(
-        productModel: productModel,
-        idProduct: productModel.idProduct!,
-        quantity: cartList[index].quantity + numberOfItems.value,
-      );
-    } else {
-      final cartModel = CartModel(
-        productModel: productModel,
-        idProduct: productModel.idProduct!,
-        quantity: numberOfItems.value,
-      );
-      cartList.add(cartModel);
+  void removeProduct(ProductModel dataProduct) {
+    var index = cartList
+        .indexWhere((element) => element.idProduct == dataProduct.idProduct);
+    if (index >= 0) {
+      totalAllQuantity -= cartList[index].quantity;
+      totalPrice.value -= dataProduct.price! * cartList[index].quantity;
+      cartList.removeAt(index);
     }
-
-    totalPrice.value =
-        totalPrice.value + (productModel.price! * numberOfItems.value);
-    numberOfItems.value = 1;
+    update();
   }
 
   getProductQuantity(ProductModel dataProduct) {

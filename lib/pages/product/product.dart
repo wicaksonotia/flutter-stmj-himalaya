@@ -49,9 +49,14 @@ class ProductPage extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.bottomSheet(
-                            CartPage(),
-                          );
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (context) => const CartPage(),
+                              isScrollControlled: true,
+                              backgroundColor: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                      top: Radius.circular(20))));
                         },
                         child: Row(
                           children: [

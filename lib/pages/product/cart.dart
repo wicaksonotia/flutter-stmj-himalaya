@@ -1,5 +1,8 @@
+import 'package:esjerukkadiri/commons/colors.dart';
+import 'package:esjerukkadiri/commons/sizes.dart';
 import 'package:esjerukkadiri/controllers/cart_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 class CartPage extends StatelessWidget {
@@ -11,59 +14,82 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final CartController cartController = Get.find<CartController>();
     var size = MediaQuery.of(context).size;
-    return SizedBox(
-      height: size.height,
-      child: Material(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
-        ),
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 5),
-              height: 5,
-              width: size.width / 3,
-              decoration: BoxDecoration(
-                color: Colors.grey[300],
-                borderRadius: BorderRadius.circular(100),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+
+    return DraggableScrollableSheet(
+      expand: false,
+      initialChildSize: .25,
+      maxChildSize: .5,
+      minChildSize: .2,
+      builder: (context, scrollController) {
+        return SingleChildScrollView(
+          controller: scrollController,
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              if (cartController.cartList.isEmpty)
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/empty_cart.png',
+                        height: 100,
+                      ),
+                      const Gap(16),
+                      Text(
+                        'Your cart is empty',
+                        style: TextStyle(
+                          fontSize: MySizes.fontSizeXl,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const Gap(16),
+                      Text(
+                        'Looks like you haven\'t add any item to your cart yet!',
+                        style: TextStyle(
+                          fontSize: MySizes.fontSizeMd,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                ...cartController.cartList.map(
+                  (cart) {
+                    return Dismissible(
+                      key: Key(cart.productModel.idProduct.toString()),
+                      direction: DismissDirection.endToStart,
+                      onDismissed: (direction) {
+                        cartController.removeProduct(cart.productModel);
+                        if (cartController.cartList.isEmpty) {
+                          // Trigger a rebuild to show the empty cart message
+                          (context as Element).markNeedsBuild();
+                        }
+                      },
+                      background: Container(
+                        color: MyColors.red,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.symmetric(horizontal: 20),
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                        ),
+                      ),
+                      child: ListTile(
+                        title: Text(cart.productModel.productName!),
+                        subtitle: Text(
+                          'Rp ${cart.productModel.price}',
+                        ),
+                        trailing: Text(cart.quantity.toString()),
+                      ),
+                    );
+                  },
                 ),
-              ),
-              child: Column(
-                children: [
-                  // ListView.builder(
-                  //   itemCount: cartController.cartList.length,
-                  //   itemBuilder: (_, index) {
-                  //     final cart = cartController.cartList[index];
-                  //     return ListTile(
-                  //       title: Text(cart.productModel.productName!),
-                  //       subtitle: Text(
-                  //         'Rp ${cart.productModel.price}',
-                  //       ),
-                  //       trailing: Row(
-                  //         mainAxisSize: MainAxisSize.min,
-                  //         children: [
-                  //           Text(cart.quantity.toString()),
-                  //         ],
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
