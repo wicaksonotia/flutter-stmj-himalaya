@@ -76,8 +76,8 @@ class ProductPage extends StatelessWidget {
                                             Duration(milliseconds: 400)),
                                 child: const Icon(
                                   Icons.shopping_bag,
-                                  color: MyColors.green,
                                   size: 30,
+                                  color: MyColors.green,
                                 ),
                               ),
                               const SizedBox(
@@ -108,27 +108,49 @@ class ProductPage extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize: 30,
-                          onPressed: () {
+                        InkWell(
+                          onTap: () {
                             cartController.saveCart();
                           },
-                          icon: const Icon(Icons.save),
-                          color: MyColors.green,
+                          child: const Icon(
+                            Icons.save,
+                            color: MyColors.green,
+                            size: 30,
+                          ),
                         ),
+                        // IconButton(
+                        //   padding: EdgeInsets.zero,
+                        //   iconSize: 30,
+                        //   onPressed: () {
+                        //     cartController.saveCart();
+                        //   },
+                        //   icon: const Icon(Icons.save),
+                        //   color: MyColors.green,
+                        // ),
                         verticalSeparator(),
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize: 30,
-                          onPressed: () {
+                        InkWell(
+                          onTap: () {
                             productController.toggleShowListGrid();
                           },
-                          icon: Icon((productController.showListGrid.value)
-                              ? Icons.grid_view_rounded
-                              : Icons.format_list_bulleted_rounded),
-                          color: MyColors.green,
+                          child: Icon(
+                            (productController.showListGrid.value)
+                                ? Icons.grid_view_rounded
+                                : Icons.format_list_bulleted_rounded,
+                            color: MyColors.primary,
+                            size: 30,
+                          ),
                         ),
+                        // IconButton(
+                        //   padding: EdgeInsets.zero,
+                        //   iconSize: 30,
+                        //   onPressed: () {
+                        //     productController.toggleShowListGrid();
+                        //   },
+                        //   icon: Icon((productController.showListGrid.value)
+                        //       ? Icons.grid_view_rounded
+                        //       : Icons.format_list_bulleted_rounded),
+                        //   color: MyColors.green,
+                        // ),
                       ],
                     ),
                   ),
