@@ -1,9 +1,11 @@
 import 'package:esjerukkadiri/models/cart_model.dart';
 import 'package:esjerukkadiri/models/product_model.dart';
+import 'package:esjerukkadiri/networks/api_request.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
   List<CartModel> cartList = <CartModel>[].obs;
+  var isLoading = false.obs;
   var numberOfItems = 1.obs;
   var totalPrice = 0.obs;
   var totalAllQuantity = 0.obs;
@@ -15,14 +17,14 @@ class CartController extends GetxController {
       var index = cartList
           .indexWhere((element) => element.idProduct == dataProduct.idProduct);
       cartList[index].quantity++;
-      print("totalQuantity: ${cartList[index].quantity}");
+      // print("totalQuantity: ${cartList[index].quantity}");
     } else {
       cartList.add(CartModel(
         productModel: dataProduct,
         idProduct: dataProduct.idProduct!,
         quantity: 1,
       ));
-      print("totalQuantity: ${cartList.last.quantity}");
+      // print("totalQuantity: ${cartList.last.quantity}");
     }
     totalAllQuantity++;
     totalPrice.value += dataProduct.price!;
@@ -37,7 +39,7 @@ class CartController extends GetxController {
         cartList[index].quantity--;
         totalAllQuantity--;
         totalPrice.value -= dataProduct.price!;
-        print("totalQuantity: ${cartList[index].quantity}");
+        // print("totalQuantity: ${cartList[index].quantity}");
       } else {
         cartList.removeAt(index);
       }
@@ -64,6 +66,34 @@ class CartController extends GetxController {
       return cartList[index].quantity;
     } else {
       return 0;
+    }
+  }
+
+  void saveCart() async {
+    try {
+      isLoading(true);
+      var payload = cartList.map((cartItem) {
+        return {
+          'id_product': cartItem.idProduct,
+          'product_name': cartItem.productModel.productName.toString(),
+          'quantity': cartItem.quantity,
+          'unit_price': cartItem.productModel.price,
+          'kios': 'sumbertugu',
+        };
+      }).toList();
+      // print(rawJson);
+      var result = await RemoteDataSource.saveTransaction(payload);
+      if (result) {
+        print("Success");
+        cartList.clear();
+        totalAllQuantity = 0.obs;
+        totalPrice.value = 0;
+        update();
+      }
+    } catch (e) {
+      print("Failed to save transaction: ${e.toString()}");
+    } finally {
+      isLoading(false);
     }
   }
 }

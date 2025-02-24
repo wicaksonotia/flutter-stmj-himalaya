@@ -2,7 +2,6 @@ import 'package:esjerukkadiri/commons/containers/box_container.dart';
 import 'package:esjerukkadiri/commons/currency.dart';
 import 'package:esjerukkadiri/commons/sizes.dart';
 import 'package:esjerukkadiri/controllers/cart_controller.dart';
-import 'package:esjerukkadiri/controllers/transaction_controller.dart';
 import 'package:esjerukkadiri/pages/product/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,8 +18,6 @@ class ProductPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ProductController productController = Get.find<ProductController>();
     final CartController cartController = Get.find<CartController>();
-    final TransactionController transactionController =
-        Get.find<TransactionController>();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -110,7 +107,7 @@ class ProductPage extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         iconSize: 30,
                         onPressed: () {
-                          transactionController.saveTransaction();
+                          cartController.saveCart();
                         },
                         icon: const Icon(Icons.save),
                         color: MyColors.green,

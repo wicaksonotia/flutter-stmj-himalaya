@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:esjerukkadiri/models/product_model.dart';
 import 'package:esjerukkadiri/models/transaction_model.dart';
 import 'package:esjerukkadiri/networks/api_endpoints.dart';
@@ -12,7 +13,7 @@ class RemoteDataSource {
       Response response = await dio.post(url,
           data: data,
           options: Options(
-            contentType: 'application/json',
+            contentType: Headers.jsonContentType,
           ));
       // print(response.statusCode);
       if (response.statusCode == 200) {
@@ -36,15 +37,16 @@ class RemoteDataSource {
   }
 
   // SAVE TRANSACTION
-  static Future<bool> saveTransaction(FormData data) async {
+  static Future<bool> saveTransaction(List<dynamic> data) async {
+    // String jsonData = jsonEncode(data);
     try {
       Dio dio = Dio();
       var url =
           ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.saveTransaction;
       Response response = await dio.post(url,
-          data: data,
+          data: jsonEncode(data),
           options: Options(
-            contentType: 'application/json',
+            contentType: Headers.jsonContentType,
           ));
       if (response.statusCode == 200) {
         return true;

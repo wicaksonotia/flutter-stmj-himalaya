@@ -7,6 +7,6 @@ class _AuthEndPoints {
   // final String registerEmail = 'authaccount/registration';
   final String login = 'login';
   final String product = 'products';
-  final String saveTransaction = 'transactions';
+  final String saveTransaction = 'savetransaction';
   final String getTransactions = 'transactions';
 }
