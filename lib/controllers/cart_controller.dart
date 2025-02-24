@@ -22,6 +22,7 @@ class CartController extends GetxController {
         idProduct: dataProduct.idProduct!,
         quantity: 1,
       ));
+      print("totalQuantity: ${cartList.last.quantity}");
     }
     totalAllQuantity++;
     totalPrice.value += dataProduct.price!;
@@ -45,28 +46,12 @@ class CartController extends GetxController {
     update();
   }
 
-  void listCart() {
-    cartList.forEach((element) {
-      print("idProduct: ${element.idProduct}");
-      print("quantity: ${element.quantity}");
-    });
-  }
-
   void removeProduct(ProductModel dataProduct) {
     var index = cartList
         .indexWhere((element) => element.idProduct == dataProduct.idProduct);
     if (index >= 0) {
       totalAllQuantity -= cartList[index].quantity;
       totalPrice.value -= dataProduct.price! * cartList[index].quantity;
-      cartList.removeAt(index);
-    }
-    update();
-  }
-
-  void removeData(String idProduct) {
-    var index =
-        cartList.indexWhere((element) => element.idProduct == idProduct);
-    if (index >= 0) {
       cartList.removeAt(index);
     }
     update();

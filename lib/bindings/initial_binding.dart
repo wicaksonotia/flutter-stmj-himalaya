@@ -1,5 +1,6 @@
 import 'package:esjerukkadiri/controllers/cart_controller.dart';
 import 'package:esjerukkadiri/controllers/product_controller.dart';
+import 'package:esjerukkadiri/controllers/transaction_controller.dart';
 import 'package:get/get.dart';
 
 class InitialBinding implements Bindings {
@@ -8,5 +9,6 @@ class InitialBinding implements Bindings {
     // Get.lazyPut<LoginController>(() => LoginController());
     Get.put<ProductController>(ProductController());
     Get.put<CartController>(CartController());
+    Get.put<TransactionController>(TransactionController());
   }
 }

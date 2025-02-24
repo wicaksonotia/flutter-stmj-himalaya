@@ -13,18 +13,6 @@ class CartModel {
     required this.quantity,
   });
 
-  CartModel copyWith({
-    ProductModel? productModel,
-    int? idProduct,
-    int? quantity,
-  }) {
-    return CartModel(
-      productModel: productModel ?? this.productModel,
-      idProduct: idProduct ?? this.idProduct,
-      quantity: quantity ?? this.quantity,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'productModel': productModel,
@@ -46,21 +34,4 @@ class CartModel {
 
   factory CartModel.fromJson(String source) =>
       CartModel.fromMap(json.decode(source) as Map<String, dynamic>);
-
-  @override
-  String toString() =>
-      'CartModel(productModel: $productModel, idProduct: $idProduct, quantity: $quantity)';
-
-  @override
-  bool operator ==(covariant CartModel other) {
-    if (identical(this, other)) return true;
-
-    return other.productModel == productModel &&
-        other.idProduct == idProduct &&
-        other.quantity == quantity;
-  }
-
-  @override
-  int get hashCode =>
-      productModel.hashCode ^ idProduct.hashCode ^ quantity.hashCode;
 }
