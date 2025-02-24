@@ -21,130 +21,130 @@ class ProductPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: CustomScrollView(
-        slivers: [
-          const SliverAppBar(
-            // title: SearchBarContainer(),
-            backgroundColor: MyColors.primary,
-            flexibleSpace: FlexibleSpaceBar(
-                collapseMode: CollapseMode.parallax,
-                background: Image(
-                  image: AssetImage('assets/images/header.jpeg'),
-                  fit: BoxFit.cover,
-                )),
-            pinned: true,
-            expandedHeight: 130,
-            collapsedHeight: 35,
-            toolbarHeight: 30,
-          ),
-          SliverPersistentHeader(
-            delegate: _SliverAppBarDelegate(
-              BoxContainer(
-                shadow: true,
-                radius: 0,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          showModalBottomSheet(
-                              context: context,
-                              builder: (context) => const CartPage(),
-                              isScrollControlled: true,
-                              backgroundColor: Colors.white,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(20))));
-                        },
-                        child: Row(
-                          children: [
-                            badges.Badge(
-                              badgeContent: Text(
-                                cartController.totalAllQuantity.value
-                                    .toString(),
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              badgeAnimation: const badges.BadgeAnimation.fade(
-                                  animationDuration:
-                                      Duration(milliseconds: 400)),
-                              child: const Icon(
-                                Icons.shopping_bag,
-                                color: MyColors.green,
-                                size: 30,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            verticalSeparator(),
-                            RichText(
-                              text: TextSpan(
-                                text: 'Rp ',
-                                style: const TextStyle(
-                                  fontSize: MySizes.fontSizeMd,
-                                  color: MyColors.primary,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          productController.fetchProduct();
+        },
+        child: CustomScrollView(
+          slivers: [
+            const SliverAppBar(
+              // title: SearchBarContainer(),
+              backgroundColor: MyColors.primary,
+              flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.parallax,
+                  background: Image(
+                    image: AssetImage('assets/images/header.jpeg'),
+                    fit: BoxFit.cover,
+                  )),
+              pinned: true,
+              expandedHeight: 130,
+              collapsedHeight: 35,
+              toolbarHeight: 30,
+            ),
+            SliverPersistentHeader(
+              delegate: _SliverAppBarDelegate(
+                BoxContainer(
+                  shadow: true,
+                  radius: 0,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Obx(
+                    () => Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (context) => const CartPage(),
+                                isScrollControlled: true,
+                                backgroundColor: Colors.white,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20))));
+                          },
+                          child: Row(
+                            children: [
+                              badges.Badge(
+                                badgeContent: Text(
+                                  cartController.totalAllQuantity.value
+                                      .toString(),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: CurrencyFormat.convertToIdr(
-                                        cartController.totalPrice.value, 0),
-                                    style: const TextStyle(
-                                      fontSize: MySizes.fontSizeXl,
-                                      color: MyColors.primary,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                                badgeAnimation:
+                                    const badges.BadgeAnimation.fade(
+                                        animationDuration:
+                                            Duration(milliseconds: 400)),
+                                child: const Icon(
+                                  Icons.shopping_bag,
+                                  color: MyColors.green,
+                                  size: 30,
+                                ),
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              verticalSeparator(),
+                              RichText(
+                                text: TextSpan(
+                                  text: 'Rp ',
+                                  style: const TextStyle(
+                                    fontSize: MySizes.fontSizeMd,
+                                    color: MyColors.primary,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: CurrencyFormat.convertToIdr(
+                                          cartController.totalPrice.value, 0),
+                                      style: const TextStyle(
+                                        fontSize: MySizes.fontSizeXl,
+                                        color: MyColors.primary,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        iconSize: 30,
-                        onPressed: () {
-                          cartController.saveCart();
-                        },
-                        icon: const Icon(Icons.save),
-                        color: MyColors.green,
-                      ),
-                      verticalSeparator(),
-                      IconButton(
-                        padding: EdgeInsets.zero,
-                        iconSize: 30,
-                        onPressed: () {
-                          productController.toggleShowListGrid();
-                        },
-                        icon: Icon((productController.showListGrid.value)
-                            ? Icons.grid_view_rounded
-                            : Icons.format_list_bulleted_rounded),
-                        color: MyColors.green,
-                      ),
-                    ],
+                        const Spacer(),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          iconSize: 30,
+                          onPressed: () {
+                            cartController.saveCart();
+                          },
+                          icon: const Icon(Icons.save),
+                          color: MyColors.green,
+                        ),
+                        verticalSeparator(),
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          iconSize: 30,
+                          onPressed: () {
+                            productController.toggleShowListGrid();
+                          },
+                          icon: Icon((productController.showListGrid.value)
+                              ? Icons.grid_view_rounded
+                              : Icons.format_list_bulleted_rounded),
+                          color: MyColors.green,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
+              pinned: true,
             ),
-            pinned: true,
-          ),
-          SliverToBoxAdapter(
-            child: Column(
-              children: [
-                Obx(() {
-                  if (productController.showListGrid.value) {
-                    return ProductListView();
-                  } else {
-                    return ProductGridView();
-                  }
-                }),
-              ],
-            ),
-          )
-        ],
+            SliverToBoxAdapter(
+              child: Obx(() {
+                return productController.showListGrid.value
+                    ? ProductListView()
+                    : ProductGridView();
+              }),
+            )
+          ],
+        ),
       ),
     );
   }

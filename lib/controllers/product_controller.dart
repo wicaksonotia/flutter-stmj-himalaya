@@ -5,7 +5,6 @@ import 'package:esjerukkadiri/models/product_model.dart';
 class ProductController extends GetxController {
   var productItems = <ProductModel>[].obs;
   var isLoading = true.obs;
-  RxInt currentTabIndex = 0.obs;
   var showListGrid = true.obs;
 
   @override
@@ -15,7 +14,6 @@ class ProductController extends GetxController {
   }
 
   void fetchProduct() async {
-    currentTabIndex.refresh();
     try {
       isLoading(true);
       var result = await RemoteDataSource.getProduct();
@@ -29,10 +27,5 @@ class ProductController extends GetxController {
 
   toggleShowListGrid() {
     showListGrid(!showListGrid.value);
-  }
-
-  void onChangeTab(int idx) {
-    currentTabIndex(idx);
-    update();
   }
 }
