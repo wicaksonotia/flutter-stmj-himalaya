@@ -21,11 +21,6 @@ class _IncrementAndDecrementState extends State<IncrementAndDecrement> {
   var quantity = 0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Obx(
       () => BoxContainer(
@@ -47,8 +42,8 @@ class _IncrementAndDecrementState extends State<IncrementAndDecrement> {
                 cartController.decrementProductQuantity(widget.dataProduct);
                 setState(() {
                   quantity--;
-                  if (quantity <= 0) {
-                    cartController.clearCart();
+                  if (quantity < 1) {
+                    cartController.removeProduct(widget.dataProduct);
                   }
                 });
               },

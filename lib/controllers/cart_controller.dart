@@ -1,7 +1,13 @@
 import 'package:esjerukkadiri/models/cart_model.dart';
 import 'package:esjerukkadiri/models/product_model.dart';
 import 'package:esjerukkadiri/networks/api_request.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
+import 'package:flutter/services.dart';
+import 'package:image/image.dart';
 
 class CartController extends GetxController {
   List<CartModel> cartList = <CartModel>[].obs;
@@ -72,26 +78,52 @@ class CartController extends GetxController {
   void saveCart() async {
     try {
       isLoading(true);
-      var payload = cartList.map((cartItem) {
-        return {
-          'id_product': cartItem.idProduct,
-          'product_name': cartItem.productModel.productName.toString(),
-          'quantity': cartItem.quantity,
-          'unit_price': cartItem.productModel.price,
-          'kios': 'sumbertugu',
-        };
-      }).toList();
-      // print(rawJson);
-      var result = await RemoteDataSource.saveTransaction(payload);
-      if (result) {
-        print("Success");
-        cartList.clear();
-        totalAllQuantity = 0.obs;
-        totalPrice.value = 0;
-        update();
+      if (cartList.isNotEmpty) {
+        var payload = cartList.map((cartItem) {
+          return {
+            'id_product': cartItem.idProduct,
+            'product_name': cartItem.productModel.productName.toString(),
+            'quantity': cartItem.quantity,
+            'unit_price': cartItem.productModel.price,
+            'kios': 'sumbertugu',
+          };
+        }).toList();
+        var resultSave = await RemoteDataSource.saveTransaction(payload);
+        if (resultSave) {
+          // NOTIF SAVE SUCCESS
+          Get.snackbar('Notification', 'data saved successfully',
+              icon: const Icon(Icons.check),
+              snackPosition: SnackPosition.BOTTOM);
+
+          // CLEAR TRANSACTION
+          cartList.clear();
+          totalAllQuantity = 0.obs;
+          totalPrice.value = 0;
+          update();
+
+          bool connectionStatus = await PrintBluetoothThermal.connectionStatus;
+          if (connectionStatus) {
+            List<int> nota = await printPurchaseOrder();
+            var resultPrint = await PrintBluetoothThermal.writeBytes(nota);
+            if (!resultPrint) {
+              Get.snackbar('Notification', 'Failed to print',
+                  icon: const Icon(Icons.error),
+                  snackPosition: SnackPosition.BOTTOM);
+            }
+          } else {
+            Get.snackbar('Notification', 'Bluetooth not connected',
+                icon: const Icon(Icons.error),
+                snackPosition: SnackPosition.BOTTOM);
+          }
+        }
+      } else {
+        Get.snackbar('Notification', 'Your cart is empty',
+            icon: const Icon(Icons.error), snackPosition: SnackPosition.BOTTOM);
       }
     } catch (e) {
-      print("Failed to save transaction: ${e.toString()}");
+      Get.snackbar(
+          'Notification', 'Failed to save transaction: ${e.toString()}',
+          icon: const Icon(Icons.error), snackPosition: SnackPosition.BOTTOM);
     } finally {
       isLoading(false);
     }
@@ -102,5 +134,69 @@ class CartController extends GetxController {
     totalAllQuantity = 0.obs;
     totalPrice.value = 0;
     update();
+  }
+
+  Future<List<int>> printPurchaseOrder() async {
+    List<int> bytes = [];
+    // Using default profile
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(PaperSize.mm58, profile);
+    bytes += generator.reset();
+
+    // IMAGE
+    final ByteData data = await rootBundle.load('assets/images/logo.png');
+    final Uint8List bytesImg = data.buffer.asUint8List();
+    final image = decodeImage(bytesImg);
+    final resizedImage = copyResize(image!, width: 250);
+    bytes += generator.image(resizedImage);
+    bytes += generator.feed(2);
+
+    // CART LIST
+    for (var cartItem in cartList) {
+      bytes += generator.row([
+        PosColumn(
+          text: cartItem.productModel.productName ?? 'Unknown Product',
+          width: 7,
+          styles: const PosStyles(align: PosAlign.left),
+        ),
+        PosColumn(
+          text: cartItem.quantity.toString(),
+          width: 2,
+          styles: const PosStyles(align: PosAlign.center),
+        ),
+        PosColumn(
+          text: (cartItem.productModel.price! * cartItem.quantity).toString(),
+          width: 3,
+          styles: const PosStyles(align: PosAlign.right),
+        ),
+      ]);
+    }
+    bytes += generator.hr();
+    bytes += generator.row([
+      PosColumn(
+        text: 'Total',
+        width: 6,
+        styles: const PosStyles(align: PosAlign.left, bold: true),
+      ),
+      PosColumn(
+        text: totalPrice.value.toString(),
+        width: 6,
+        styles: const PosStyles(align: PosAlign.right, bold: true),
+      ),
+    ]);
+
+    //barcode
+    // final List<int> barData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 4];
+    // bytes += generator.barcode(Barcode.upcA(barData));
+
+    //QR code
+    bytes += generator.qrcode('https://www.instagram.com/esjeruk.kadiri/');
+    bytes += generator.text(
+        DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now()),
+        styles: const PosStyles(align: PosAlign.center));
+
+    bytes += generator.feed(2);
+    // bytes += generator.cut();
+    return bytes;
   }
 }

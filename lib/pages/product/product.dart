@@ -10,7 +10,6 @@ import 'package:esjerukkadiri/controllers/product_controller.dart';
 import 'package:esjerukkadiri/pages/product/product_grid_view.dart';
 import 'package:esjerukkadiri/pages/product/product_list_view.dart';
 import 'package:badges/badges.dart' as badges;
-import 'package:get/get_connect/http/src/utils/utils.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -43,6 +42,7 @@ class _ProductPageState extends State<ProductPage> {
             SliverAppBar(
               actions: [
                 PopupMenuButton(
+                  color: Colors.white,
                   icon: const Icon(
                     Icons.more_vert,
                     color: Colors.white,

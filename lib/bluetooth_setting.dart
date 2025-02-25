@@ -24,7 +24,6 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
     "permission bluetooth granted",
     "bluetooth enabled",
     "connection status",
-    "update info"
   ];
 
   String _selectSize = "2";
@@ -38,7 +37,13 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    getBluetoots();
+    PrintBluetoothThermal.connectionStatus.then((bool result) {
+      setState(() {
+        connected = result;
+        _info = "connection status: $result";
+      });
+    });
   }
 
   @override
@@ -69,8 +74,6 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
                   setState(() {
                     _info = "Bluetooth enabled: $state";
                   });
-                } else if (sel == "update info") {
-                  initPlatformState();
                 } else if (sel == "connection status") {
                   final bool result =
                       await PrintBluetoothThermal.connectionStatus;
@@ -177,90 +180,12 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
                         );
                       },
                     )),
-                const SizedBox(height: 10),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    color: Colors.grey.withAlpha(50),
-                  ),
-                  child: Column(children: [
-                    const Text(
-                        "Text size without the library without external packets, print images still it should not use a library"),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _txtText,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Text",
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 5),
-                        DropdownButton<String>(
-                          hint: const Text('Size'),
-                          value: _selectSize,
-                          items: <String>['1', '2', '3', '4', '5']
-                              .map((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                          onChanged: (String? select) {
-                            setState(() {
-                              _selectSize = select.toString();
-                            });
-                          },
-                        )
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: connected ? printWithoutPackage : null,
-                      child: const Text("Print"),
-                    ),
-                  ]),
-                ),
-                const SizedBox(height: 10),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    int porcentbatery = 0;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      platformVersion = await PrintBluetoothThermal.platformVersion;
-      //print("patformversion: $platformVersion");
-      porcentbatery = await PrintBluetoothThermal.batteryLevel;
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    final bool result = await PrintBluetoothThermal.bluetoothEnabled;
-    print("bluetooth enabled: $result");
-    if (result) {
-      _msj = "Bluetooth enabled, please search and connect";
-    } else {
-      _msj = "Bluetooth not enabled";
-    }
-
-    setState(() {
-      _info = "$platformVersion ($porcentbatery% battery)";
-    });
   }
 
   Future<void> getBluetoots() async {
@@ -381,7 +306,7 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
           width: image.width ~/ 1.3,
           height: image.height ~/ 1.3,
           interpolation: img.Interpolation.nearest);
-      final bytesimg = Uint8List.fromList(img.encodeJpg(resizedImage));
+      Uint8List.fromList(img.encodeJpg(resizedImage));
       //image = img.decodeImage(bytesimg);
     }
 
