@@ -90,11 +90,21 @@ class _CartPageState extends State<CartPage> {
                         ],
                       ),
                       child: ListTile(
-                        title: Text(cart.productModel.productName!),
+                        title: Text(cart.productModel.productName!,
+                            style: const TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: MySizes.fontSizeLg)),
                         subtitle: Text(
-                          'Rp ${cart.productModel.price}',
+                          'total Harga : Rp ${cart.productModel.price! * cart.quantity}',
                         ),
-                        trailing: Text(cart.quantity.toString()),
+                        trailing: Text(
+                          cart.quantity.toString(),
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: MySizes.fontSizeLg),
+                        ),
                       ),
                     );
                   },

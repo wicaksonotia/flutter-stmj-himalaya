@@ -10,15 +10,28 @@ import 'package:esjerukkadiri/controllers/product_controller.dart';
 import 'package:esjerukkadiri/pages/product/product_grid_view.dart';
 import 'package:esjerukkadiri/pages/product/product_list_view.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:get/get_connect/http/src/utils/utils.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final ProductController productController = Get.find<ProductController>();
-    final CartController cartController = Get.find<CartController>();
+  _ProductPageState createState() => _ProductPageState();
+}
 
+class _ProductPageState extends State<ProductPage> {
+  late ProductController productController;
+  late CartController cartController;
+
+  @override
+  void initState() {
+    super.initState();
+    productController = Get.find<ProductController>();
+    cartController = Get.find<CartController>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: RefreshIndicator(
@@ -27,10 +40,58 @@ class ProductPage extends StatelessWidget {
         },
         child: CustomScrollView(
           slivers: [
-            const SliverAppBar(
-              // title: SearchBarContainer(),
+            SliverAppBar(
+              actions: [
+                PopupMenuButton(
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                  ),
+                  onSelected: (dynamic value) {},
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                    PopupMenuItem(
+                      child: Obx(
+                        () => ListTile(
+                          leading: Icon(
+                            (productController.showListGrid.value)
+                                ? Icons.grid_view_rounded
+                                : Icons.format_list_bulleted_rounded,
+                          ),
+                          title: Text((productController.showListGrid.value)
+                              ? 'Grid view'
+                              : 'List view'),
+                          onTap: () {
+                            productController.showListGrid.value =
+                                !productController.showListGrid.value;
+                          },
+                        ),
+                      ),
+                    ),
+                    const PopupMenuItem(
+                      child: ListTile(
+                        leading: Icon(Icons.edit_document),
+                        title: Text('Report'),
+                      ),
+                    ),
+                    const PopupMenuDivider(),
+                    PopupMenuItem(
+                      child: ListTile(
+                        leading: const Icon(Icons.bluetooth_searching),
+                        title: const Text('Setting Bluetooth'),
+                        onTap: () => Get.toNamed('/bluetooth_setting'),
+                      ),
+                    ),
+                    const PopupMenuItem(
+                      child: ListTile(
+                        leading: Icon(Icons.settings),
+                        title: Text('Settings'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
               backgroundColor: MyColors.primary,
-              flexibleSpace: FlexibleSpaceBar(
+              flexibleSpace: const FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
                   background: Image(
                     image: AssetImage('assets/images/header.jpeg'),
@@ -108,49 +169,15 @@ class ProductPage extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        InkWell(
-                          onTap: () {
+                        IconButton(
+                          padding: EdgeInsets.zero,
+                          iconSize: 30,
+                          onPressed: () {
                             cartController.saveCart();
                           },
-                          child: const Icon(
-                            Icons.save,
-                            color: MyColors.green,
-                            size: 30,
-                          ),
+                          icon: const Icon(Icons.save),
+                          color: MyColors.green,
                         ),
-                        // IconButton(
-                        //   padding: EdgeInsets.zero,
-                        //   iconSize: 30,
-                        //   onPressed: () {
-                        //     cartController.saveCart();
-                        //   },
-                        //   icon: const Icon(Icons.save),
-                        //   color: MyColors.green,
-                        // ),
-                        verticalSeparator(),
-                        InkWell(
-                          onTap: () {
-                            productController.toggleShowListGrid();
-                          },
-                          child: Icon(
-                            (productController.showListGrid.value)
-                                ? Icons.grid_view_rounded
-                                : Icons.format_list_bulleted_rounded,
-                            color: MyColors.primary,
-                            size: 30,
-                          ),
-                        ),
-                        // IconButton(
-                        //   padding: EdgeInsets.zero,
-                        //   iconSize: 30,
-                        //   onPressed: () {
-                        //     productController.toggleShowListGrid();
-                        //   },
-                        //   icon: Icon((productController.showListGrid.value)
-                        //       ? Icons.grid_view_rounded
-                        //       : Icons.format_list_bulleted_rounded),
-                        //   color: MyColors.green,
-                        // ),
                       ],
                     ),
                   ),

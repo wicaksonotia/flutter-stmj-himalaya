@@ -47,6 +47,9 @@ class _IncrementAndDecrementState extends State<IncrementAndDecrement> {
                 cartController.decrementProductQuantity(widget.dataProduct);
                 setState(() {
                   quantity--;
+                  if (quantity <= 0) {
+                    cartController.clearCart();
+                  }
                 });
               },
               icon: const Icon(

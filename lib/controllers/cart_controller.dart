@@ -96,4 +96,11 @@ class CartController extends GetxController {
       isLoading(false);
     }
   }
+
+  void clearCart() {
+    cartList.clear();
+    totalAllQuantity = 0.obs;
+    totalPrice.value = 0;
+    update();
+  }
 }
