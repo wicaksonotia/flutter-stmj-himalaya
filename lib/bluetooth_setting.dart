@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:esjerukkadiri/commons/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
+import 'package:get/get.dart';
 import 'package:print_bluetooth_thermal/post_code.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:image/image.dart' as img;
@@ -50,49 +52,71 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-          actions: [
-            PopupMenuButton(
-              elevation: 3.2,
-              //initialValue: _options[1],
-              onCanceled: () {
-                print('You have not chossed anything');
+        backgroundColor: Colors.white,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(50.0),
+          child: AppBar(
+            title: const Text(
+              'Setting Bluetooth',
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: MyColors.primary,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Get.back();
               },
-              tooltip: 'Menu',
-              onSelected: (Object select) async {
-                String sel = select as String;
-                if (sel == "permission bluetooth granted") {
-                  bool status =
-                      await PrintBluetoothThermal.isPermissionBluetoothGranted;
-                  setState(() {
-                    _info = "permission bluetooth granted: $status";
-                  });
-                  //open setting permision if not granted permision
-                } else if (sel == "bluetooth enabled") {
-                  bool state = await PrintBluetoothThermal.bluetoothEnabled;
-                  setState(() {
-                    _info = "Bluetooth enabled: $state";
-                  });
-                } else if (sel == "connection status") {
-                  final bool result =
-                      await PrintBluetoothThermal.connectionStatus;
-                  connected = result;
-                  setState(() {
-                    _info = "connection status: $result";
-                  });
-                }
-              },
-              itemBuilder: (BuildContext context) {
-                return _options.map((String option) {
-                  return PopupMenuItem(
-                    value: option,
-                    child: Text(option),
-                  );
-                }).toList();
-              },
-            )
-          ],
+            ),
+            actions: [
+              PopupMenuButton(
+                elevation: 3.2,
+                //initialValue: _options[1],
+                onCanceled: () {
+                  print('You have not chossed anything');
+                },
+                tooltip: 'Menu',
+                color: Colors.white,
+                icon: const Icon(
+                  Icons.more_vert,
+                  color: Colors.white,
+                ),
+                onSelected: (Object select) async {
+                  String sel = select as String;
+                  if (sel == "permission bluetooth granted") {
+                    bool status = await PrintBluetoothThermal
+                        .isPermissionBluetoothGranted;
+                    setState(() {
+                      _info = "permission bluetooth granted: $status";
+                    });
+                    //open setting permision if not granted permision
+                  } else if (sel == "bluetooth enabled") {
+                    bool state = await PrintBluetoothThermal.bluetoothEnabled;
+                    setState(() {
+                      _info = "Bluetooth enabled: $state";
+                    });
+                  } else if (sel == "connection status") {
+                    final bool result =
+                        await PrintBluetoothThermal.connectionStatus;
+                    connected = result;
+                    setState(() {
+                      _info = "connection status: $result";
+                    });
+                  }
+                },
+                itemBuilder: (BuildContext context) {
+                  return _options.map((String option) {
+                    return PopupMenuItem(
+                      value: option,
+                      child: Text(option),
+                    );
+                  }).toList();
+                },
+              )
+            ],
+          ),
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
