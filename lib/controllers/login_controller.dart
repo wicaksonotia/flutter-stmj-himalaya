@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginController extends GetxController {
   var isPasswordVisible = false.obs;
   var isLoading = false.obs;
-  var isShowLogout = false.obs;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   var isLogin = false.obs;
@@ -18,24 +17,29 @@ class LoginController extends GetxController {
     isPasswordVisible(!isPasswordVisible.value);
   }
 
+  @override
+  void onInit() {
+    checkLoginStatus();
+    super.onInit();
+  }
+
   Future<void> loginWithEmail() async {
-    // var headers = {'Content-Type': 'application/json'};
     try {
       isLoading(true);
       Dio.FormData formData = Dio.FormData.fromMap({
         "username": emailController.text.trim(),
-        "password": passwordController.text,
+        // "password": passwordController.text,
       });
       bool result = await RemoteDataSource.login(formData);
+      // print(result);
       if (result) {
-        isShowLogout(true);
         // final SharedPreferences prefs = await _prefs;
         await prefs.setBool('statusLogin', true);
         await prefs.setString('username', emailController.text.trim());
-        await prefs.setString('password', passwordController.text);
-        Get.offNamed('/pendaftaran');
+        // await prefs.setString('password', passwordController.text);
+        Get.offNamed('/product');
       } else {
-        throw "No Uji / Password salah";
+        throw "Kios is not regsitered";
       }
     } catch (error) {
       Get.snackbar('Notification', error.toString(),
@@ -45,13 +49,22 @@ class LoginController extends GetxController {
     }
   }
 
+  void checkLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    isLogin.value = prefs.getBool('statusLogin') ?? false;
+    if (isLogin.value == true) {
+      Get.offAllNamed('/product');
+    } else {
+      Get.offAllNamed('/login');
+    }
+  }
+
   void logout() async {
     // final SharedPreferences prefs = await _prefs;
     prefs.setBool('statusLogin', false);
     isLogin.value = prefs.getBool('statusLogin') ?? false;
-    isShowLogout(false);
-    Get.back();
-    Get.toNamed('/home');
+    print(isLogin.value);
+    Get.offAllNamed('/login');
   }
 
   void openBottomSheet() {
@@ -70,7 +83,7 @@ class LoginController extends GetxController {
           children: [
             const Center(
               child: Text(
-                'Apakah anda mau logout?',
+                'Do you want to logout?',
                 style: TextStyle(
                     color: Colors.black, fontSize: MySizes.fontSizeLg),
               ),

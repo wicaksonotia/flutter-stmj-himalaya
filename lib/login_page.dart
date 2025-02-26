@@ -11,7 +11,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return Text('asd');
     return Obx(
       () => Scaffold(
         backgroundColor: Colors.white,
@@ -109,46 +108,46 @@ class LoginPage extends StatelessWidget {
                             children: [
                               Container(
                                 padding: const EdgeInsets.all(8.0),
-                                decoration: const BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Color.fromRGBO(
-                                                143, 148, 251, 1)))),
+                                // decoration: const BoxDecoration(
+                                //     border: Border(
+                                //         bottom: BorderSide(
+                                //             color: Color.fromRGBO(
+                                //                 143, 148, 251, 1)))),
                                 child: TextField(
                                   controller: loginController.emailController,
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "No Uji Kendaraan",
+                                      hintText: "Nama Kios",
                                       hintStyle:
                                           TextStyle(color: Colors.grey[700])),
                                 ),
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(8.0),
-                                child: TextField(
-                                  controller:
-                                      loginController.passwordController,
-                                  obscureText:
-                                      !loginController.isPasswordVisible.value,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Password",
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey[700]),
-                                    suffixIcon: InkWell(
-                                        onTap: () {
-                                          loginController.showPassword();
-                                        },
-                                        child: Icon(
-                                          loginController
-                                                  .isPasswordVisible.value
-                                              ? Icons.visibility
-                                              : Icons.visibility_off,
-                                          color: const Color(0xFF5C5F65),
-                                        )),
-                                  ),
-                                ),
-                              )
+                              // Container(
+                              //   padding: const EdgeInsets.all(8.0),
+                              //   child: TextField(
+                              //     controller:
+                              //         loginController.passwordController,
+                              //     obscureText:
+                              //         !loginController.isPasswordVisible.value,
+                              //     decoration: InputDecoration(
+                              //       border: InputBorder.none,
+                              //       hintText: "Password",
+                              //       hintStyle:
+                              //           TextStyle(color: Colors.grey[700]),
+                              //       suffixIcon: InkWell(
+                              //           onTap: () {
+                              //             loginController.showPassword();
+                              //           },
+                              //           child: Icon(
+                              //             loginController
+                              //                     .isPasswordVisible.value
+                              //                 ? Icons.visibility
+                              //                 : Icons.visibility_off,
+                              //             color: const Color(0xFF5C5F65),
+                              //           )),
+                              //     ),
+                              //   ),
+                              // )
                             ],
                           ),
                         )),

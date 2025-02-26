@@ -2,6 +2,7 @@ import 'package:esjerukkadiri/commons/containers/box_container.dart';
 import 'package:esjerukkadiri/commons/currency.dart';
 import 'package:esjerukkadiri/commons/sizes.dart';
 import 'package:esjerukkadiri/controllers/cart_controller.dart';
+import 'package:esjerukkadiri/controllers/login_controller.dart';
 import 'package:esjerukkadiri/pages/product/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,18 +20,26 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  late ProductController productController;
-  late CartController cartController;
+  late LoginController loginController;
 
   @override
   void initState() {
     super.initState();
-    productController = Get.find<ProductController>();
-    cartController = Get.find<CartController>();
+    loginController = Get.find<LoginController>();
+
+    // Check login status and redirect if not logged in
+    if (!loginController.isLogin.value) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Get.offAllNamed('/login');
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final ProductController productController = Get.find<ProductController>();
+    final CartController cartController = Get.find<CartController>();
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: RefreshIndicator(
@@ -76,15 +85,26 @@ class _ProductPageState extends State<ProductPage> {
                     const PopupMenuDivider(),
                     PopupMenuItem(
                       child: ListTile(
-                        leading: const Icon(Icons.bluetooth_searching),
-                        title: const Text('Setting Bluetooth'),
-                        onTap: () => Get.toNamed('/bluetooth_setting'),
-                      ),
+                          leading: const Icon(Icons.bluetooth_searching),
+                          title: const Text('Setting Bluetooth'),
+                          onTap: () {
+                            Get.back();
+                            Get.toNamed('/bluetooth_setting');
+                          }),
                     ),
                     const PopupMenuItem(
                       child: ListTile(
                         leading: Icon(Icons.settings),
                         title: Text('Settings'),
+                      ),
+                    ),
+                    PopupMenuItem(
+                      child: ListTile(
+                        leading: Icon(Icons.logout),
+                        title: Text('Logout'),
+                        onTap: () {
+                          loginController.logout();
+                        },
                       ),
                     ),
                   ],

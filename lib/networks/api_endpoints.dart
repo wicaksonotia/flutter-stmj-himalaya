@@ -4,8 +4,7 @@ class ApiEndPoints {
 }
 
 class _AuthEndPoints {
-  // final String registerEmail = 'authaccount/registration';
-  final String login = 'login';
+  final String login = 'loginkios';
   final String product = 'products';
   final String saveTransaction = 'savetransaction';
   final String getTransactions = 'transactions';

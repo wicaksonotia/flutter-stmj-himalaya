@@ -91,15 +91,9 @@ class CartController extends GetxController {
         var resultSave = await RemoteDataSource.saveTransaction(payload);
         if (resultSave) {
           // NOTIF SAVE SUCCESS
-          Get.snackbar('Notification', 'data saved successfully',
+          Get.snackbar('Notification', 'Data saved successfully',
               icon: const Icon(Icons.check),
               snackPosition: SnackPosition.BOTTOM);
-
-          // CLEAR TRANSACTION
-          cartList.clear();
-          totalAllQuantity = 0.obs;
-          totalPrice.value = 0;
-          update();
 
           bool connectionStatus = await PrintBluetoothThermal.connectionStatus;
           if (connectionStatus) {
@@ -115,6 +109,11 @@ class CartController extends GetxController {
                 icon: const Icon(Icons.error),
                 snackPosition: SnackPosition.BOTTOM);
           }
+          // CLEAR TRANSACTION
+          cartList.clear();
+          totalAllQuantity = 0.obs;
+          totalPrice.value = 0;
+          update();
         }
       } else {
         Get.snackbar('Notification', 'Your cart is empty',

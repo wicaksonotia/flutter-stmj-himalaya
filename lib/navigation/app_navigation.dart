@@ -6,13 +6,11 @@ import 'package:esjerukkadiri/pages/product/product.dart';
 class RouterClass {
   static String login = "/login";
   static String product = "/product";
-  static String printpage = "/print_page";
   static String bluetoothSetting = "/bluetooth_setting";
 
   static List<GetPage> routes = [
     GetPage(page: () => LoginPage(), name: login),
-    GetPage(page: () => ProductPage(), name: product),
-    // GetPage(page: () => PrintPage(), name: printpage),
-    GetPage(page: () => BluetoothSetting(), name: bluetoothSetting),
+    GetPage(page: () => const ProductPage(), name: product),
+    GetPage(page: () => const BluetoothSetting(), name: bluetoothSetting),
   ];
 }
