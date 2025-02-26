@@ -26,9 +26,6 @@ class RemoteDataSource {
           // passwordController.clear();
           return true;
         }
-        // else if (response.data['status'] == 'error') {
-        //   return false;
-        // }
       }
       return false;
     } catch (e) {
