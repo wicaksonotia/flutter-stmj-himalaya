@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CartController extends GetxController {
   List<CartModel> cartList = <CartModel>[].obs;
@@ -78,6 +79,7 @@ class CartController extends GetxController {
   void saveCart() async {
     try {
       isLoading(true);
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
       if (cartList.isNotEmpty) {
         var payload = cartList.map((cartItem) {
           return {
@@ -85,7 +87,7 @@ class CartController extends GetxController {
             'product_name': cartItem.productModel.productName.toString(),
             'quantity': cartItem.quantity,
             'unit_price': cartItem.productModel.price,
-            'kios': 'sumbertugu',
+            'kios': prefs.getString('username'),
           };
         }).toList();
         var resultSave = await RemoteDataSource.saveTransaction(payload);
