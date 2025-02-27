@@ -20,25 +20,24 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  late LoginController loginController;
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loginController = Get.find<LoginController>();
 
-  @override
-  void initState() {
-    super.initState();
-    loginController = Get.find<LoginController>();
-
-    // Check login status and redirect if not logged in
-    if (!loginController.isLogin.value) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        Get.offAllNamed('/login');
-      });
-    }
-  }
+  //   // Check login status and redirect if not logged in
+  //   if (!loginController.isLogin.value) {
+  //     WidgetsBinding.instance.addPostFrameCallback((_) {
+  //       Get.offAllNamed('/login');
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     final ProductController productController = Get.find<ProductController>();
     final CartController cartController = Get.find<CartController>();
+    final LoginController loginController = Get.find<LoginController>();
 
     return Scaffold(
       backgroundColor: Colors.white,

@@ -5,9 +5,15 @@ import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
 // ignore: must_be_immutable
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
-  LoginController loginController = Get.find<LoginController>();
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final LoginController loginController = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
