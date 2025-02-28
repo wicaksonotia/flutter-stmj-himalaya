@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
+import 'package:esjerukkadiri/models/product_category_model.dart';
 import 'dart:convert';
 import 'package:esjerukkadiri/models/product_model.dart';
 import 'package:esjerukkadiri/models/transaction_model.dart';
@@ -71,11 +72,26 @@ class RemoteDataSource {
     }
   }
 
+  // PRODUCT CATEGORIES
+  static Future<List<ProductCategoryModel>?> getProductCategories() async {
+    try {
+      var url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.categories;
+      final response = await Dio().get(url);
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = response.data;
+        return jsonData.map((e) => ProductCategoryModel.fromJson(e)).toList();
+      }
+      return null;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   // LIST PRODUCT
-  static Future<List<ProductModel>?> getProduct() async {
+  static Future<List<ProductModel>?> getProduct(int id) async {
     try {
       var url = ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.product;
-      final response = await Dio().get(url);
+      final response = await Dio().get('$url?productcategory=$id');
       if (response.statusCode == 200) {
         List<dynamic> jsonData = response.data;
         // print(jsonData);

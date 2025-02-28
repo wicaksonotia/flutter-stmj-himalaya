@@ -24,7 +24,7 @@ class ProductGridView extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
-            itemCount: 6, // Number of shimmer items
+            itemCount: 3, // Number of shimmer items
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -147,7 +147,7 @@ class ProductGridView extends StatelessWidget {
                               // ),
                               image: DecorationImage(
                                 image:
-                                    AssetImage('assets/images/orange_ice.jpg'),
+                                    AssetImage('assets/images/orange_ice.png'),
                                 fit: BoxFit.cover,
                               ),
                             ),

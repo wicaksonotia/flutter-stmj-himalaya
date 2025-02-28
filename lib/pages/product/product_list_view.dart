@@ -23,7 +23,7 @@ class ProductListView extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
               scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
-              itemCount: 6,
+              itemCount: 3,
               shrinkWrap: true,
               itemBuilder: (_, index) {
                 return BoxContainer(
@@ -126,7 +126,7 @@ class ProductListView extends StatelessWidget {
                         height: 100,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/images/orange_ice.jpg'),
+                            image: AssetImage('assets/images/orange_ice.png'),
                             fit: BoxFit.cover,
                           ),
                         ),

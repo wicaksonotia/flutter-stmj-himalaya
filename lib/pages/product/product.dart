@@ -1,16 +1,13 @@
 import 'package:esjerukkadiri/commons/containers/box_container.dart';
-import 'package:esjerukkadiri/commons/currency.dart';
-import 'package:esjerukkadiri/commons/sizes.dart';
-import 'package:esjerukkadiri/controllers/cart_controller.dart';
 import 'package:esjerukkadiri/controllers/login_controller.dart';
-import 'package:esjerukkadiri/pages/product/cart.dart';
+import 'package:esjerukkadiri/pages/product/categories.dart';
+import 'package:esjerukkadiri/pages/product/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:esjerukkadiri/commons/colors.dart';
 import 'package:esjerukkadiri/controllers/product_controller.dart';
 import 'package:esjerukkadiri/pages/product/product_grid_view.dart';
 import 'package:esjerukkadiri/pages/product/product_list_view.dart';
-import 'package:badges/badges.dart' as badges;
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -36,11 +33,11 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     final ProductController productController = Get.find<ProductController>();
-    final CartController cartController = Get.find<CartController>();
     final LoginController loginController = Get.find<LoginController>();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade50,
+      bottomNavigationBar: const FooterContainer(),
       body: RefreshIndicator(
         onRefresh: () async {
           productController.fetchProduct();
@@ -109,97 +106,26 @@ class _ProductPageState extends State<ProductPage> {
                   ],
                 ),
               ],
-              backgroundColor: MyColors.primary,
+              backgroundColor: MyColors.green,
               flexibleSpace: const FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
                   background: Image(
-                    image: AssetImage('assets/images/header.jpeg'),
+                    image: AssetImage('assets/images/header.png'),
                     fit: BoxFit.cover,
                   )),
               pinned: true,
               expandedHeight: 130,
-              collapsedHeight: 35,
+              collapsedHeight: 50,
               toolbarHeight: 30,
             ),
             SliverPersistentHeader(
               delegate: _SliverAppBarDelegate(
-                BoxContainer(
+                const BoxContainer(
                   shadow: true,
                   radius: 0,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Obx(
-                    () => Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (context) => const CartPage(),
-                                isScrollControlled: true,
-                                backgroundColor: Colors.white,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20))));
-                          },
-                          child: Row(
-                            children: [
-                              badges.Badge(
-                                badgeContent: Text(
-                                  cartController.totalAllQuantity.value
-                                      .toString(),
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                                badgeAnimation:
-                                    const badges.BadgeAnimation.fade(
-                                        animationDuration:
-                                            Duration(milliseconds: 400)),
-                                child: const Icon(
-                                  Icons.shopping_bag,
-                                  size: 30,
-                                  color: MyColors.green,
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              verticalSeparator(),
-                              RichText(
-                                text: TextSpan(
-                                  text: 'Rp ',
-                                  style: const TextStyle(
-                                    fontSize: MySizes.fontSizeMd,
-                                    color: MyColors.primary,
-                                  ),
-                                  children: [
-                                    TextSpan(
-                                      text: CurrencyFormat.convertToIdr(
-                                          cartController.totalPrice.value, 0),
-                                      style: const TextStyle(
-                                        fontSize: MySizes.fontSizeXl,
-                                        color: MyColors.primary,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                          padding: EdgeInsets.zero,
-                          iconSize: 30,
-                          onPressed: () {
-                            cartController.saveCart();
-                          },
-                          icon: const Icon(Icons.save),
-                          color: MyColors.green,
-                        ),
-                      ],
-                    ),
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.centerLeft,
+                  child: CategoriesMenu(),
                 ),
               ),
               pinned: true,
@@ -210,18 +136,10 @@ class _ProductPageState extends State<ProductPage> {
                     ? ProductListView()
                     : ProductGridView();
               }),
-            )
+            ),
           ],
         ),
       ),
-    );
-  }
-
-  VerticalDivider verticalSeparator() {
-    return VerticalDivider(
-      color: Colors.grey[300],
-      thickness: 1,
-      width: 20,
     );
   }
 }

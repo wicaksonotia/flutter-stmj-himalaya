@@ -4,6 +4,7 @@ import 'package:esjerukkadiri/models/product_model.dart';
 
 class ProductController extends GetxController {
   var productItems = <ProductModel>[].obs;
+  var idProductCategory = 8.obs;
   var isLoading = true.obs;
   var showListGrid = true.obs;
 
@@ -16,7 +17,7 @@ class ProductController extends GetxController {
   void fetchProduct() async {
     try {
       isLoading(true);
-      var result = await RemoteDataSource.getProduct();
+      var result = await RemoteDataSource.getProduct(idProductCategory.value);
       if (result != null) {
         productItems.assignAll(result);
       }
