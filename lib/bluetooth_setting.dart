@@ -60,7 +60,7 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
               'Setting Bluetooth',
               style: TextStyle(color: Colors.white),
             ),
-            backgroundColor: MyColors.primary,
+            backgroundColor: MyColors.green,
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back,

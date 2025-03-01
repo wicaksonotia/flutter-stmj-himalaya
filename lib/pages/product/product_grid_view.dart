@@ -24,7 +24,8 @@ class ProductGridView extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
-            itemCount: 3, // Number of shimmer items
+            itemCount:
+                controller.productItems.length, // Number of shimmer items
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

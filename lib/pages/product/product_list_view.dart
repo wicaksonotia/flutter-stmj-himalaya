@@ -23,7 +23,7 @@ class ProductListView extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
               scrollDirection: Axis.vertical,
               physics: const BouncingScrollPhysics(),
-              itemCount: 3,
+              itemCount: controller.productItems.length,
               shrinkWrap: true,
               itemBuilder: (_, index) {
                 return BoxContainer(

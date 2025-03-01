@@ -17,19 +17,6 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   loginController = Get.find<LoginController>();
-
-  //   // Check login status and redirect if not logged in
-  //   if (!loginController.isLogin.value) {
-  //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       Get.offAllNamed('/login');
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     final ProductController productController = Get.find<ProductController>();
@@ -72,11 +59,14 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                       ),
                     ),
-                    const PopupMenuItem(
+                    PopupMenuItem(
                       child: ListTile(
-                        leading: Icon(Icons.edit_document),
-                        title: Text('Report'),
-                      ),
+                          leading: const Icon(Icons.edit_document),
+                          title: const Text('Report'),
+                          onTap: () {
+                            Get.back();
+                            Get.toNamed('/reporttransaction');
+                          }),
                     ),
                     const PopupMenuDivider(),
                     PopupMenuItem(
