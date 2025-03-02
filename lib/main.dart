@@ -1,6 +1,6 @@
-import 'package:esjerukkadiri/bindings/initial_binding.dart';
+import 'package:stmjhimalaya/bindings/initial_binding.dart';
 import 'package:flutter/material.dart';
-import 'package:esjerukkadiri/navigation/app_navigation.dart';
+import 'package:stmjhimalaya/navigation/app_navigation.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

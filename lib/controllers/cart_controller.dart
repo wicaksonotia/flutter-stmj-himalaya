@@ -1,6 +1,6 @@
-import 'package:esjerukkadiri/models/cart_model.dart';
-import 'package:esjerukkadiri/models/product_model.dart';
-import 'package:esjerukkadiri/networks/api_request.dart';
+import 'package:stmjhimalaya/models/cart_model.dart';
+import 'package:stmjhimalaya/models/product_model.dart';
+import 'package:stmjhimalaya/networks/api_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
 import 'package:get/get.dart';

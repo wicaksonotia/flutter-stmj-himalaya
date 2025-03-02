@@ -1,13 +1,13 @@
-import 'package:esjerukkadiri/commons/containers/box_container.dart';
-import 'package:esjerukkadiri/controllers/login_controller.dart';
-import 'package:esjerukkadiri/pages/product/categories.dart';
-import 'package:esjerukkadiri/pages/product/footer.dart';
+import 'package:stmjhimalaya/commons/containers/box_container.dart';
+import 'package:stmjhimalaya/controllers/login_controller.dart';
+import 'package:stmjhimalaya/pages/product/categories.dart';
+import 'package:stmjhimalaya/pages/product/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:esjerukkadiri/commons/colors.dart';
-import 'package:esjerukkadiri/controllers/product_controller.dart';
-import 'package:esjerukkadiri/pages/product/product_grid_view.dart';
-import 'package:esjerukkadiri/pages/product/product_list_view.dart';
+import 'package:stmjhimalaya/commons/colors.dart';
+import 'package:stmjhimalaya/controllers/product_controller.dart';
+import 'package:stmjhimalaya/pages/product/product_grid_view.dart';
+import 'package:stmjhimalaya/pages/product/product_list_view.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});

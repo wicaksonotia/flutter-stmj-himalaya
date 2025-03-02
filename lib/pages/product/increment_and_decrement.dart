@@ -1,6 +1,6 @@
-import 'package:esjerukkadiri/commons/containers/box_container.dart';
-import 'package:esjerukkadiri/controllers/cart_controller.dart';
-import 'package:esjerukkadiri/models/product_model.dart';
+import 'package:stmjhimalaya/commons/containers/box_container.dart';
+import 'package:stmjhimalaya/controllers/cart_controller.dart';
+import 'package:stmjhimalaya/models/product_model.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 

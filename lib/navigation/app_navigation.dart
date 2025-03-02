@@ -1,8 +1,8 @@
-import 'package:esjerukkadiri/login_page.dart';
-import 'package:esjerukkadiri/bluetooth_setting.dart';
-import 'package:esjerukkadiri/pages/report/transaction.dart';
+import 'package:stmjhimalaya/login_page.dart';
+import 'package:stmjhimalaya/bluetooth_setting.dart';
+import 'package:stmjhimalaya/pages/report/transaction.dart';
 import 'package:get/get.dart';
-import 'package:esjerukkadiri/pages/product/product.dart';
+import 'package:stmjhimalaya/pages/product/product.dart';
 
 class RouterClass {
   static String login = "/login";

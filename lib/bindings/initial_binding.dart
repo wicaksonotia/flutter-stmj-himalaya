@@ -1,7 +1,7 @@
-import 'package:esjerukkadiri/controllers/cart_controller.dart';
-import 'package:esjerukkadiri/controllers/login_controller.dart';
-import 'package:esjerukkadiri/controllers/product_category.dart';
-import 'package:esjerukkadiri/controllers/product_controller.dart';
+import 'package:stmjhimalaya/controllers/cart_controller.dart';
+import 'package:stmjhimalaya/controllers/login_controller.dart';
+import 'package:stmjhimalaya/controllers/product_category.dart';
+import 'package:stmjhimalaya/controllers/product_controller.dart';
 import 'package:get/get.dart';
 
 class InitialBinding implements Bindings {

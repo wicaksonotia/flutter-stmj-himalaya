@@ -1,10 +1,10 @@
-import 'package:esjerukkadiri/networks/api_request.dart';
+import 'package:stmjhimalaya/networks/api_request.dart';
 import 'package:get/get.dart';
-import 'package:esjerukkadiri/models/product_model.dart';
+import 'package:stmjhimalaya/models/product_model.dart';
 
 class ProductController extends GetxController {
   var productItems = <ProductModel>[].obs;
-  var idProductCategory = 8.obs;
+  var idProductCategory = 11.obs;
   var isLoading = true.obs;
   var showListGrid = true.obs;
 

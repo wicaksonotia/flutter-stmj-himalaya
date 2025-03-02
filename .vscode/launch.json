@@ -5,18 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "esjerukkadiri",
+      "name": "stmjhimalaya",
       "request": "launch",
       "type": "dart"
     },
     {
-      "name": "esjerukkadiri (profile mode)",
+      "name": "stmjhimalaya (profile mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "profile"
     },
     {
-      "name": "esjerukkadiri (release mode)",
+      "name": "stmjhimalaya (release mode)",
       "request": "launch",
       "type": "dart",
       "flutterMode": "release"

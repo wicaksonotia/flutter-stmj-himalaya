@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:esjerukkadiri/commons/colors.dart';
+import 'package:stmjhimalaya/commons/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';

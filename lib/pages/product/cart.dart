@@ -1,6 +1,6 @@
-import 'package:esjerukkadiri/commons/colors.dart';
-import 'package:esjerukkadiri/commons/sizes.dart';
-import 'package:esjerukkadiri/controllers/cart_controller.dart';
+import 'package:stmjhimalaya/commons/colors.dart';
+import 'package:stmjhimalaya/commons/sizes.dart';
+import 'package:stmjhimalaya/controllers/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';

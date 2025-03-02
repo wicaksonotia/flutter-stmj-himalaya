@@ -1,5 +1,5 @@
-import 'package:esjerukkadiri/models/product_category_model.dart';
-import 'package:esjerukkadiri/networks/api_request.dart';
+import 'package:stmjhimalaya/models/product_category_model.dart';
+import 'package:stmjhimalaya/networks/api_request.dart';
 import 'package:get/get.dart';
 
 class ProductCategoryController extends GetxController {

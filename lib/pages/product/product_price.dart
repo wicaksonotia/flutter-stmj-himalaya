@@ -1,6 +1,6 @@
-import 'package:esjerukkadiri/commons/colors.dart';
-import 'package:esjerukkadiri/commons/currency.dart';
-import 'package:esjerukkadiri/commons/sizes.dart';
+import 'package:stmjhimalaya/commons/colors.dart';
+import 'package:stmjhimalaya/commons/currency.dart';
+import 'package:stmjhimalaya/commons/sizes.dart';
 import 'package:flutter/cupertino.dart';
 
 class ProductPrice extends StatelessWidget {

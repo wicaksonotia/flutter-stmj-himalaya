@@ -1,6 +1,6 @@
-import 'package:esjerukkadiri/commons/colors.dart';
-import 'package:esjerukkadiri/controllers/product_category.dart';
-import 'package:esjerukkadiri/controllers/product_controller.dart';
+import 'package:stmjhimalaya/commons/colors.dart';
+import 'package:stmjhimalaya/controllers/product_category.dart';
+import 'package:stmjhimalaya/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -13,7 +13,7 @@ class CategoriesMenu extends StatefulWidget {
 }
 
 class _CategoriesMenuState extends State<CategoriesMenu> {
-  int? groupValue = 8;
+  int? groupValue = 11;
   bool selectedColor = false;
   Map<int, Widget> categories = {};
   final ProductCategoryController _productCategoryController =
@@ -73,7 +73,7 @@ class _CategoriesMenuState extends State<CategoriesMenu> {
                 });
               },
             )
-          : Text(''),
+          : const Text(''),
     );
   }
 }

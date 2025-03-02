@@ -1,11 +1,11 @@
-import 'package:esjerukkadiri/commons/colors.dart';
-import 'package:esjerukkadiri/commons/currency.dart';
-import 'package:esjerukkadiri/commons/sizes.dart';
-import 'package:esjerukkadiri/pages/report/footer.dart';
+import 'package:stmjhimalaya/commons/colors.dart';
+import 'package:stmjhimalaya/commons/currency.dart';
+import 'package:stmjhimalaya/commons/sizes.dart';
+import 'package:stmjhimalaya/pages/report/footer.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:esjerukkadiri/controllers/transaction_controller.dart';
+import 'package:stmjhimalaya/controllers/transaction_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 

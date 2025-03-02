@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' as Dio;
-import 'package:esjerukkadiri/commons/sizes.dart';
-import 'package:esjerukkadiri/networks/api_request.dart';
+import 'package:stmjhimalaya/commons/sizes.dart';
+import 'package:stmjhimalaya/networks/api_request.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';

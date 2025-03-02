@@ -1,4 +1,4 @@
-import 'package:esjerukkadiri/commons/sizes.dart';
+import 'package:stmjhimalaya/commons/sizes.dart';
 import 'package:flutter/material.dart';
 
 class BoxContainer extends StatelessWidget {

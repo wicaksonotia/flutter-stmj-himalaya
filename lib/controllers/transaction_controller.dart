@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:esjerukkadiri/commons/currency.dart';
-import 'package:esjerukkadiri/models/cart_model.dart';
-import 'package:esjerukkadiri/models/transaction_detail_model.dart';
-import 'package:esjerukkadiri/models/transaction_model.dart';
-import 'package:esjerukkadiri/networks/api_request.dart';
+import 'package:stmjhimalaya/commons/currency.dart';
+import 'package:stmjhimalaya/models/cart_model.dart';
+import 'package:stmjhimalaya/models/transaction_detail_model.dart';
+import 'package:stmjhimalaya/models/transaction_model.dart';
+import 'package:stmjhimalaya/networks/api_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

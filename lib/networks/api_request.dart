@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:dio/dio.dart';
-import 'package:esjerukkadiri/models/product_category_model.dart';
+import 'package:stmjhimalaya/models/product_category_model.dart';
 import 'dart:convert';
-import 'package:esjerukkadiri/models/product_model.dart';
-import 'package:esjerukkadiri/models/transaction_detail_model.dart';
-import 'package:esjerukkadiri/models/transaction_model.dart';
-import 'package:esjerukkadiri/networks/api_endpoints.dart';
+import 'package:stmjhimalaya/models/product_model.dart';
+import 'package:stmjhimalaya/models/transaction_detail_model.dart';
+import 'package:stmjhimalaya/models/transaction_model.dart';
+import 'package:stmjhimalaya/networks/api_endpoints.dart';
 
 class RemoteDataSource {
   static Future<bool> login(FormData data) async {

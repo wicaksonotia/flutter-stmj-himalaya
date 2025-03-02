@@ -1,11 +1,11 @@
-import 'package:esjerukkadiri/pages/product/increment_and_decrement.dart';
-import 'package:esjerukkadiri/pages/product/product_price.dart';
+import 'package:stmjhimalaya/pages/product/increment_and_decrement.dart';
+import 'package:stmjhimalaya/pages/product/product_price.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:esjerukkadiri/commons/containers/box_container.dart';
-import 'package:esjerukkadiri/commons/sizes.dart';
-import 'package:esjerukkadiri/controllers/product_controller.dart';
+import 'package:stmjhimalaya/commons/containers/box_container.dart';
+import 'package:stmjhimalaya/commons/sizes.dart';
+import 'package:stmjhimalaya/controllers/product_controller.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductListView extends StatelessWidget {
@@ -126,7 +126,7 @@ class ProductListView extends StatelessWidget {
                         height: 100,
                         decoration: const BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage('assets/images/orange_ice.png'),
+                            image: AssetImage('assets/images/stmj.jpeg'),
                             fit: BoxFit.cover,
                           ),
                         ),
