@@ -145,12 +145,11 @@ class CartController extends GetxController {
     bytes += generator.reset();
 
     // IMAGE
-    final ByteData data = await rootBundle.load('assets/images/logo.png');
+    final ByteData data = await rootBundle.load('assets/images/logo.jpg');
     final Uint8List bytesImg = data.buffer.asUint8List();
     final image = decodeImage(bytesImg);
     final resizedImage = copyResize(image!, width: 250);
     bytes += generator.image(resizedImage);
-    bytes += generator.feed(2);
 
     // CART LIST
     for (var cartItem in cartList) {
@@ -195,6 +194,16 @@ class CartController extends GetxController {
     bytes += generator.text(
         DateFormat('dd-MM-yyyy HH:mm').format(DateTime.now()),
         styles: const PosStyles(align: PosAlign.center));
+
+    bytes += generator.feed(1);
+
+    // IMAGE
+    final ByteData _dataHastag =
+        await rootBundle.load('assets/images/hastag.jpg');
+    final Uint8List _bytesImgHastag = _dataHastag.buffer.asUint8List();
+    final _imageHastag = decodeImage(_bytesImgHastag);
+    final _resizedImageHastag = copyResize(_imageHastag!, width: 300);
+    bytes += generator.image(_resizedImageHastag);
 
     bytes += generator.feed(2);
     // bytes += generator.cut();
