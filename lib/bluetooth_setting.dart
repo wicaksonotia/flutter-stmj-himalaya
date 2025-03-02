@@ -4,6 +4,7 @@ import 'package:esjerukkadiri/commons/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:print_bluetooth_thermal/post_code.dart';
 import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
@@ -168,7 +169,7 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
                                     backgroundColor: Colors.blue),
                               ),
                             ),
-                            const SizedBox(width: 5),
+                            const Gap(5),
                             Text(_progress ? _msjprogress : "Search"),
                           ],
                         ),

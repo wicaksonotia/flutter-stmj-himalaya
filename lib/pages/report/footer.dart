@@ -1,22 +1,23 @@
-import 'package:badges/badges.dart' as badges;
 import 'package:esjerukkadiri/commons/colors.dart';
 import 'package:esjerukkadiri/commons/currency.dart';
 import 'package:esjerukkadiri/commons/sizes.dart';
-import 'package:esjerukkadiri/controllers/cart_controller.dart';
+import 'package:esjerukkadiri/controllers/transaction_controller.dart';
 import 'package:esjerukkadiri/pages/product/cart.dart';
+import 'package:esjerukkadiri/pages/report/filter.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
-class FooterProduct extends StatefulWidget {
-  const FooterProduct({super.key});
+class FooterReport extends StatefulWidget {
+  const FooterReport({super.key});
 
   @override
-  State<FooterProduct> createState() => _FooterProductState();
+  State<FooterReport> createState() => _FooterReportState();
 }
 
-class _FooterProductState extends State<FooterProduct> {
-  final CartController cartController = Get.find<CartController>();
+class _FooterReportState extends State<FooterReport> {
+  final TransactionController _transactionController =
+      Get.find<TransactionController>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,44 +41,34 @@ class _FooterProductState extends State<FooterProduct> {
             InkWell(
               onTap: () {
                 showModalBottomSheet(
-                  context: context,
-                  builder: (context) => const CartPage(),
-                  isScrollControlled: true,
-                  backgroundColor: Colors.white,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(20)),
-                  ),
-                );
+                    context: context,
+                    builder: (context) => const CartPage(),
+                    isScrollControlled: true,
+                    backgroundColor: Colors.white,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.vertical(top: Radius.circular(20))));
               },
               child: Row(
                 children: [
-                  badges.Badge(
-                    badgeContent: Text(
-                      cartController.totalAllQuantity.value.toString(),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                    badgeAnimation: const badges.BadgeAnimation.fade(
-                        animationDuration: Duration(milliseconds: 400)),
-                    child: const Icon(
-                      Icons.shopping_bag,
-                      size: 30,
-                      color: MyColors.green,
-                    ),
-                  ),
-                  const Gap(10),
-                  verticalSeparator(),
                   RichText(
                     text: TextSpan(
-                      text: 'Rp ',
+                      text: 'Total: ',
                       style: const TextStyle(
-                        fontSize: MySizes.fontSizeMd,
+                        fontSize: MySizes.fontSizeLg,
                         color: MyColors.primary,
                       ),
                       children: [
+                        const TextSpan(
+                          text: 'Rp',
+                          style: const TextStyle(
+                            fontSize: MySizes.fontSizeMd,
+                            color: MyColors.primary,
+                          ),
+                        ),
                         TextSpan(
                           text: CurrencyFormat.convertToIdr(
-                              cartController.totalPrice.value, 0),
+                              _transactionController.total.value, 0),
                           style: const TextStyle(
                             fontSize: MySizes.fontSizeXl,
                             color: MyColors.primary,
@@ -93,7 +84,16 @@ class _FooterProductState extends State<FooterProduct> {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                cartController.saveCart();
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) => const FilterReport(),
+                  isScrollControlled: true,
+                  backgroundColor: Colors.white,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20)),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
@@ -110,12 +110,12 @@ class _FooterProductState extends State<FooterProduct> {
               child: const Row(
                 children: [
                   Icon(
-                    Icons.save,
+                    Icons.filter_alt_outlined,
                     color: Colors.white,
                   ),
                   Gap(5),
                   Text(
-                    'Checkout',
+                    'Filter',
                     style: TextStyle(color: Colors.white),
                   )
                 ],
@@ -124,14 +124,6 @@ class _FooterProductState extends State<FooterProduct> {
           ],
         ),
       ),
-    );
-  }
-
-  VerticalDivider verticalSeparator() {
-    return VerticalDivider(
-      color: Colors.grey[300],
-      thickness: 1,
-      width: 20,
     );
   }
 }

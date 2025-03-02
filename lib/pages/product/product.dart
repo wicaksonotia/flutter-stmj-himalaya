@@ -24,7 +24,7 @@ class _ProductPageState extends State<ProductPage> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade50,
-      bottomNavigationBar: const FooterContainer(),
+      bottomNavigationBar: const FooterProduct(),
       body: RefreshIndicator(
         onRefresh: () async {
           productController.fetchProduct();
@@ -86,8 +86,8 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                     PopupMenuItem(
                       child: ListTile(
-                        leading: Icon(Icons.logout),
-                        title: Text('Logout'),
+                        leading: const Icon(Icons.logout),
+                        title: const Text('Logout'),
                         onTap: () {
                           loginController.logout();
                         },

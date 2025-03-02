@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:esjerukkadiri/models/product_category_model.dart';
 import 'dart:convert';
 import 'package:esjerukkadiri/models/product_model.dart';
+import 'package:esjerukkadiri/models/transaction_detail_model.dart';
 import 'package:esjerukkadiri/models/transaction_model.dart';
 import 'package:esjerukkadiri/networks/api_endpoints.dart';
 
@@ -56,15 +57,35 @@ class RemoteDataSource {
   }
 
   // GET TRANSACTION
-  static Future<List<TransactionModel>?> getTransactions() async {
+  static Future<List<TransactionModel>?> getTransactions(
+      DateTime startdate, DateTime enddate) async {
     try {
       var url =
           ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getTransactions;
-      final response = await Dio().get(url);
+      final response =
+          await Dio().get('$url?startdate=$startdate&enddate=$enddate');
       if (response.statusCode == 200) {
         List<dynamic> jsonData = response.data;
         // print(jsonData);
         return jsonData.map((e) => TransactionModel.fromJson(e)).toList();
+      }
+      return null;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
+  // GET TRANSACTION DETAILS
+  static Future<List<TransactionDetailModel>?> getTransactionDetails(
+      int numerator, String kios) async {
+    try {
+      var url = ApiEndPoints.baseUrl +
+          ApiEndPoints.authEndpoints.getTransactionDetails;
+      final response = await Dio().get('$url?numerator=$numerator&kios=$kios');
+      if (response.statusCode == 200) {
+        List<dynamic> jsonData = response.data;
+        // print(jsonData);
+        return jsonData.map((e) => TransactionDetailModel.fromJson(e)).toList();
       }
       return null;
     } catch (e) {
