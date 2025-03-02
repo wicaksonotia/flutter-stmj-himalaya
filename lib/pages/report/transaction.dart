@@ -131,12 +131,8 @@ class TransactionPageState extends State<TransactionPage> {
               var transactionDate = transactionItem.transactionDate!;
               var kios = transactionItem.kios!;
               var grandtotal = transactionItem.grandTotal;
-              bool isExpanded =
-                  transactionController.expandedIndex.value == index;
 
-              return ExpansionTile(
-                key: Key(index.toString()),
-                initiallyExpanded: isExpanded,
+              return ListTile(
                 title: Text(
                   '${kios.toUpperCase()}-${numerator.toString().padLeft(4, '0').toUpperCase()}',
                   style: const TextStyle(
@@ -168,32 +164,14 @@ class TransactionPageState extends State<TransactionPage> {
                         ],
                       ),
                     ),
-                    Obx(() {
-                      return Icon(
-                        transactionController.expandedIndex.value == index
-                            ? Icons.keyboard_arrow_up
-                            : Icons.keyboard_arrow_down,
-                      );
-                    }),
+                    IconButton(
+                      icon: const Icon(Icons.print, color: MyColors.green),
+                      onPressed: () {
+                        transactionController.PrintTransaction(numerator, kios);
+                      },
+                    ),
                   ],
                 ),
-                onExpansionChanged: (bool expanded) async {
-                  transactionController.expandedIndex.value =
-                      expanded ? index : -1;
-                  if (expanded) {
-                    transactionController.getTransactionDetails(
-                        transactionItem.numerator!, transactionItem.kios!);
-                  }
-                },
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'Transaction details for ${transactionItem.numerator!}',
-                      style: const TextStyle(fontSize: MySizes.fontSizeMd),
-                    ),
-                  ),
-                ],
               );
             },
           ),
