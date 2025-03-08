@@ -151,6 +151,16 @@ class CartController extends GetxController {
     final resizedImage = copyResize(image!, width: 250);
     bytes += generator.image(resizedImage);
 
+    // bytes += generator.text('SUSU RACIK & STMJ HIMALAYA',
+    //     styles: const PosStyles(align: PosAlign.center, bold: true));
+    bytes += generator.text(
+        'Dsn. Sumbertugu RT 07 RW 04 (Depan Musholla Sumbertugu)',
+        styles: const PosStyles(align: PosAlign.center));
+    bytes += generator.text('Kec. Gampengrejo, Kab. Kediri',
+        styles: const PosStyles(align: PosAlign.center));
+    bytes += generator.text('Telp. 085755124535',
+        styles: const PosStyles(align: PosAlign.center));
+    bytes += generator.feed(2);
     // CART LIST
     for (var cartItem in cartList) {
       bytes += generator.row([
@@ -184,7 +194,7 @@ class CartController extends GetxController {
         styles: const PosStyles(align: PosAlign.right, bold: true),
       ),
     ]);
-
+    bytes += generator.feed(1);
     //barcode
     // final List<int> barData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 4];
     // bytes += generator.barcode(Barcode.upcA(barData));
