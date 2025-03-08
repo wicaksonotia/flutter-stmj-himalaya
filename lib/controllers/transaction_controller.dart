@@ -16,6 +16,7 @@ class TransactionController extends GetxController {
   List<CartModel> cartList = <CartModel>[].obs;
   var isLoading = true.obs;
   var isLoadingDetail = true.obs;
+  var expandedIndex = (-1).obs;
   var transactionDetailItems = <TransactionDetailModel>[].obs;
   var total = 0.obs;
   var singleDate = DateTime.now().obs;
@@ -44,6 +45,7 @@ class TransactionController extends GetxController {
       if (result != null) {
         transactionItems.assignAll(result);
         total.value = transactionItems
+            .where((e) => e.deleteStatus == false)
             .map((e) => e.grandTotal ?? 0)
             .fold(0, (value, element) => value + element);
       }
@@ -65,7 +67,27 @@ class TransactionController extends GetxController {
     }
   }
 
-  void PrintTransaction(int numerator, String kios) async {
+  void removeTransaction(int numerator, String kios) async {
+    try {
+      isLoading(true);
+      var result = await RemoteDataSource.deleteTransaction(numerator, kios);
+      if (result) {
+        fetchTransaction();
+        Get.snackbar('Notification', 'Transaction deleted',
+            icon: const Icon(Icons.info), snackPosition: SnackPosition.BOTTOM);
+      } else {
+        Get.snackbar('Notification', 'Error delete transaction',
+            icon: const Icon(Icons.info), snackPosition: SnackPosition.BOTTOM);
+      }
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  /// ===================================
+  /// PRINT TRANSACTION
+  /// ===================================
+  void printTransaction(int numerator, String kios) async {
     bool connectionStatus = await PrintBluetoothThermal.connectionStatus;
     if (connectionStatus) {
       List<int> nota = await printPurchaseOrder(numerator, kios);
@@ -91,8 +113,19 @@ class TransactionController extends GetxController {
     final ByteData data = await rootBundle.load('assets/images/logo.jpg');
     final Uint8List bytesImg = data.buffer.asUint8List();
     final image = decodeImage(bytesImg);
-    final resizedImage = copyResize(image!, width: 250);
+    final resizedImage = copyResize(image!, width: 200);
     bytes += generator.image(resizedImage);
+
+    // bytes += generator.text('SUSU RACIK & STMJ HIMALAYA',
+    //     styles: const PosStyles(align: PosAlign.center, bold: true));
+    bytes += generator.text(
+        'Dsn. Sumbertugu RT 07 RW 04 \n Depan Musholla Sumbertugu',
+        styles: const PosStyles(align: PosAlign.center));
+    bytes += generator.text('Kec. Gampengrejo, Kab. Kediri',
+        styles: const PosStyles(align: PosAlign.center));
+    bytes += generator.text('Telp. 085755124535',
+        styles: const PosStyles(align: PosAlign.center));
+    bytes += generator.feed(2);
 
     var result = await RemoteDataSource.getTransactionDetails(numerator, kios);
     transactionDetailItems.assignAll(result!);
@@ -110,7 +143,8 @@ class TransactionController extends GetxController {
           styles: const PosStyles(align: PosAlign.center),
         ),
         PosColumn(
-          text: (cartItem.totalPrice).toString(),
+          text:
+              (CurrencyFormat.convertToIdr(cartItem.totalPrice, 0)).toString(),
           width: 3,
           styles: const PosStyles(align: PosAlign.right),
         ),
@@ -133,7 +167,7 @@ class TransactionController extends GetxController {
         styles: const PosStyles(align: PosAlign.right, bold: true),
       ),
     ]);
-
+    bytes += generator.feed(1);
     //barcode
     // final List<int> barData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 4];
     // bytes += generator.barcode(Barcode.upcA(barData));
@@ -159,6 +193,9 @@ class TransactionController extends GetxController {
     return bytes;
   }
 
+  /// ===================================
+  /// FILTER DATE
+  /// ===================================
   bool disableDate(DateTime day) {
     if ((day.isBefore(DateTime.now().add(const Duration(days: 0))))) {
       return true;

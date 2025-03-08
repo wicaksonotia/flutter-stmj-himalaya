@@ -9,5 +9,6 @@ class _AuthEndPoints {
   final String product = 'products';
   final String saveTransaction = 'savetransactionstmj';
   final String getTransactions = 'transactionsstmj';
-  final String getTransactionDetails = 'transactiondetails';
+  final String deleteTransaction = 'deletetransactionstmj';
+  final String getTransactionDetails = 'transactiondetailstmj';
 }
