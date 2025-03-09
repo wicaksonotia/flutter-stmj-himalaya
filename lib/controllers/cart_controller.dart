@@ -94,8 +94,7 @@ class CartController extends GetxController {
         if (resultSave) {
           // NOTIF SAVE SUCCESS
           Get.snackbar('Notification', 'Data saved successfully',
-              icon: const Icon(Icons.check),
-              snackPosition: SnackPosition.BOTTOM);
+              icon: const Icon(Icons.check), snackPosition: SnackPosition.TOP);
 
           bool connectionStatus = await PrintBluetoothThermal.connectionStatus;
           if (connectionStatus) {
@@ -104,12 +103,12 @@ class CartController extends GetxController {
             if (!resultPrint) {
               Get.snackbar('Notification', 'Failed to print',
                   icon: const Icon(Icons.error),
-                  snackPosition: SnackPosition.BOTTOM);
+                  snackPosition: SnackPosition.TOP);
             }
           } else {
             Get.snackbar('Notification', 'Bluetooth not connected',
                 icon: const Icon(Icons.error),
-                snackPosition: SnackPosition.BOTTOM);
+                snackPosition: SnackPosition.TOP);
           }
           // CLEAR TRANSACTION
           cartList.clear();
@@ -119,12 +118,12 @@ class CartController extends GetxController {
         }
       } else {
         Get.snackbar('Notification', 'Your cart is empty',
-            icon: const Icon(Icons.error), snackPosition: SnackPosition.BOTTOM);
+            icon: const Icon(Icons.error), snackPosition: SnackPosition.TOP);
       }
     } catch (e) {
       Get.snackbar(
           'Notification', 'Failed to save transaction: ${e.toString()}',
-          icon: const Icon(Icons.error), snackPosition: SnackPosition.BOTTOM);
+          icon: const Icon(Icons.error), snackPosition: SnackPosition.TOP);
     } finally {
       isLoading(false);
     }
