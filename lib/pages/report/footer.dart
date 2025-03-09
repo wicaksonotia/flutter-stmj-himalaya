@@ -38,48 +38,36 @@ class _FooterReportState extends State<FooterReport> {
         () => Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            InkWell(
-              onTap: () {
-                showModalBottomSheet(
-                    context: context,
-                    builder: (context) => const CartPage(),
-                    isScrollControlled: true,
-                    backgroundColor: Colors.white,
-                    shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20))));
-              },
-              child: Row(
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      text: 'Total: ',
-                      style: const TextStyle(
-                        fontSize: MySizes.fontSizeLg,
-                        color: MyColors.primary,
-                      ),
-                      children: [
-                        const TextSpan(
-                          text: 'Rp',
-                          style: const TextStyle(
-                            fontSize: MySizes.fontSizeMd,
-                            color: MyColors.primary,
-                          ),
-                        ),
-                        TextSpan(
-                          text: CurrencyFormat.convertToIdr(
-                              _transactionController.total.value, 0),
-                          style: const TextStyle(
-                            fontSize: MySizes.fontSizeXl,
-                            color: MyColors.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+            Row(
+              children: [
+                RichText(
+                  text: TextSpan(
+                    text: 'Total: ',
+                    style: const TextStyle(
+                      fontSize: MySizes.fontSizeLg,
+                      color: MyColors.primary,
                     ),
+                    children: [
+                      const TextSpan(
+                        text: 'Rp',
+                        style: TextStyle(
+                          fontSize: MySizes.fontSizeMd,
+                          color: MyColors.primary,
+                        ),
+                      ),
+                      TextSpan(
+                        text: CurrencyFormat.convertToIdr(
+                            _transactionController.total.value, 0),
+                        style: const TextStyle(
+                          fontSize: MySizes.fontSizeXl,
+                          color: MyColors.primary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             const Spacer(),
             ElevatedButton(
