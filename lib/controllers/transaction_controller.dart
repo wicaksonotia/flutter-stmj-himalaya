@@ -113,13 +113,13 @@ class TransactionController extends GetxController {
     final ByteData data = await rootBundle.load('assets/images/logo.jpg');
     final Uint8List bytesImg = data.buffer.asUint8List();
     final image = decodeImage(bytesImg);
-    final resizedImage = copyResize(image!, width: 200);
+    final resizedImage = copyResize(image!, width: 250);
     bytes += generator.image(resizedImage);
 
     // bytes += generator.text('SUSU RACIK & STMJ HIMALAYA',
     //     styles: const PosStyles(align: PosAlign.center, bold: true));
     bytes += generator.text(
-        'Dsn. Sumbertugu RT 07 RW 04 \n Depan Musholla Sumbertugu',
+        'Dsn. Sumbertugu RT 07 RW 04 \nDepan Musholla Sumbertugu',
         styles: const PosStyles(align: PosAlign.center));
     bytes += generator.text('Kec. Gampengrejo, Kab. Kediri',
         styles: const PosStyles(align: PosAlign.center));

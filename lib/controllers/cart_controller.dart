@@ -1,3 +1,4 @@
+import 'package:stmjhimalaya/commons/currency.dart';
 import 'package:stmjhimalaya/models/cart_model.dart';
 import 'package:stmjhimalaya/models/product_model.dart';
 import 'package:stmjhimalaya/networks/api_request.dart';
@@ -153,7 +154,7 @@ class CartController extends GetxController {
     // bytes += generator.text('SUSU RACIK & STMJ HIMALAYA',
     //     styles: const PosStyles(align: PosAlign.center, bold: true));
     bytes += generator.text(
-        'Dsn. Sumbertugu RT 07 RW 04 (Depan Musholla Sumbertugu)',
+        'Dsn. Sumbertugu RT 07 RW 04 \nDepan Musholla Sumbertugu',
         styles: const PosStyles(align: PosAlign.center));
     bytes += generator.text('Kec. Gampengrejo, Kab. Kediri',
         styles: const PosStyles(align: PosAlign.center));
@@ -174,7 +175,9 @@ class CartController extends GetxController {
           styles: const PosStyles(align: PosAlign.center),
         ),
         PosColumn(
-          text: (cartItem.productModel.price! * cartItem.quantity).toString(),
+          text: (CurrencyFormat.convertToIdr(
+                  cartItem.productModel.price! * cartItem.quantity, 0))
+              .toString(),
           width: 3,
           styles: const PosStyles(align: PosAlign.right),
         ),
@@ -188,7 +191,7 @@ class CartController extends GetxController {
         styles: const PosStyles(align: PosAlign.left, bold: true),
       ),
       PosColumn(
-        text: totalPrice.value.toString(),
+        text: (CurrencyFormat.convertToIdr(totalPrice.value, 0)).toString(),
         width: 6,
         styles: const PosStyles(align: PosAlign.right, bold: true),
       ),
