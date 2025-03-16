@@ -1,6 +1,7 @@
 import 'package:stmjhimalaya/commons/colors.dart';
 import 'package:stmjhimalaya/commons/currency.dart';
 import 'package:stmjhimalaya/commons/sizes.dart';
+import 'package:stmjhimalaya/controllers/login_controller.dart';
 import 'package:stmjhimalaya/controllers/transaction_controller.dart';
 import 'package:stmjhimalaya/pages/report/footer.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class TransactionPage extends StatefulWidget {
 class TransactionPageState extends State<TransactionPage> {
   final TransactionController transactionController =
       Get.put(TransactionController());
+  final LoginController loginController = Get.find<LoginController>();
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,36 @@ class TransactionPageState extends State<TransactionPage> {
               Get.back();
             },
           ),
+          actions: [
+            PopupMenuButton(
+              color: Colors.white,
+              icon: const Icon(
+                Icons.more_vert,
+                color: Colors.white,
+              ),
+              onSelected: (dynamic value) {},
+              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                PopupMenuItem(
+                  child: ListTile(
+                      leading: const Icon(Icons.bluetooth_searching),
+                      title: const Text('Setting Bluetooth'),
+                      onTap: () {
+                        Get.back();
+                        Get.toNamed('/bluetooth_setting');
+                      }),
+                ),
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: const Icon(Icons.logout),
+                    title: const Text('Logout'),
+                    onTap: () {
+                      loginController.logout();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
       body: Obx(() {
