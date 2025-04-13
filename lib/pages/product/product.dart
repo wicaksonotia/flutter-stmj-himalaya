@@ -37,7 +37,7 @@ class _ProductPageState extends State<ProductPage> {
                   color: Colors.white,
                   icon: const Icon(
                     Icons.more_vert,
-                    color: Colors.white,
+                    color: MyColors.primary,
                   ),
                   onSelected: (dynamic value) {},
                   itemBuilder: (BuildContext context) => <PopupMenuEntry>[
@@ -96,7 +96,7 @@ class _ProductPageState extends State<ProductPage> {
                   ],
                 ),
               ],
-              backgroundColor: MyColors.green,
+              backgroundColor: MyColors.primary,
               flexibleSpace: const FlexibleSpaceBar(
                   collapseMode: CollapseMode.parallax,
                   background: Image(

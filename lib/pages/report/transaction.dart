@@ -34,7 +34,7 @@ class TransactionPageState extends State<TransactionPage> {
             'Report',
             style: TextStyle(color: Colors.white),
           ),
-          backgroundColor: MyColors.green,
+          backgroundColor: MyColors.primary,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back,
@@ -209,7 +209,7 @@ class TransactionPageState extends State<TransactionPage> {
                         style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
-                            color: MyColors.green),
+                            color: MyColors.primary),
                       ),
                       Text(
                         transactionItem.deleteStatus! ? 'Deleted' : '',
@@ -221,7 +221,7 @@ class TransactionPageState extends State<TransactionPage> {
                     ],
                   ),
                   leading: const Icon(Icons.receipt),
-                  iconColor: MyColors.green,
+                  iconColor: MyColors.primary,
                   children: [
                     ListTile(
                       title: const Text(

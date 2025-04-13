@@ -1,0 +1,2 @@
+/Users/tiawicaksono/Documents/DEVELOPMENT/FLUTTER/stmj_himalaya/android/app/.cxx/Debug/5mdl5dd1/x86_64/CMakeFiles/edit_cache.dir
+/Users/tiawicaksono/Documents/DEVELOPMENT/FLUTTER/stmj_himalaya/android/app/.cxx/Debug/5mdl5dd1/x86_64/CMakeFiles/rebuild_cache.dir

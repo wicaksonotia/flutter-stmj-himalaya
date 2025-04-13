@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class MyColors {
-  static const Color primary = Color(0xFFE57734);
+  // static const Color primary = Color(0xFFE57734);
+  static const Color primary = Color(0xFF9c5432);
   static const Color red = Color.fromARGB(255, 220, 80, 87);
   static const Color green = Color(0xFF96af64);
   static const Color blue = Color(0xFF1e81b0);
