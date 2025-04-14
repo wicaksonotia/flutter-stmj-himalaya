@@ -7,8 +7,10 @@ class _AuthEndPoints {
   final String login = 'loginkios';
   final String categories = 'productcategorystmj';
   final String product = 'products';
+  final String saveDetailTransaction = 'savedetailtransactionstmj';
   final String saveTransaction = 'savetransactionstmj';
   final String getTransactions = 'transactionsstmj';
   final String deleteTransaction = 'deletetransactionstmj';
   final String getTransactionDetails = 'transactiondetailstmj';
+  final String getRowTransactions = 'gettransactionstmj';
 }
