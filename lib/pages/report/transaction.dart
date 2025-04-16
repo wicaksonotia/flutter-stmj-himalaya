@@ -2,6 +2,7 @@ import 'package:stmjhimalaya/commons/colors.dart';
 import 'package:stmjhimalaya/commons/currency.dart';
 import 'package:stmjhimalaya/commons/sizes.dart';
 import 'package:stmjhimalaya/controllers/login_controller.dart';
+import 'package:stmjhimalaya/controllers/print_nota_controller.dart';
 import 'package:stmjhimalaya/controllers/transaction_controller.dart';
 import 'package:stmjhimalaya/pages/report/footer.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class TransactionPage extends StatefulWidget {
 class TransactionPageState extends State<TransactionPage> {
   final TransactionController transactionController =
       Get.put(TransactionController());
+  final PrintNotaController _printNotaController =
+      Get.find<PrintNotaController>();
   final LoginController loginController = Get.find<LoginController>();
 
   @override
@@ -184,7 +187,7 @@ class TransactionPageState extends State<TransactionPage> {
                     ),
                     SlidableAction(
                       onPressed: (context) {
-                        transactionController.printTransaction(numerator, kios);
+                        _printNotaController.printTransaction(numerator, kios);
                       },
                       backgroundColor: Color(0xFF21B7CA),
                       foregroundColor: Colors.white,
