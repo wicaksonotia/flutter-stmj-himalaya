@@ -5,3 +5,4 @@ List<Map<String, dynamic>> kategori = [
   {"value": 14, "nama": "16 oz"},
   {"value": 15, "nama": "Lainnya"},
 ];
+List<String> orderTypeList = ['Dine In', 'Take Away'];

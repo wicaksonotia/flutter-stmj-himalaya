@@ -168,6 +168,7 @@ class TransactionPageState extends State<TransactionPage> {
               var kios = transactionItem.kios!;
               var grandtotal = transactionItem.grandTotal;
               var details = transactionItem.details;
+              var orderType = transactionItem.orderType ?? '';
 
               return Slidable(
                 key: Key(numerator.toString()),
@@ -197,15 +198,38 @@ class TransactionPageState extends State<TransactionPage> {
                   ],
                 ),
                 child: ExpansionTile(
-                  title: Text(
-                    '${kios.toUpperCase()}-${numerator.toString().padLeft(4, '0').toUpperCase()}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
+                  title: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text:
+                              '${kios.toUpperCase()}-${numerator.toString().padLeft(4, '0').toUpperCase()}',
+                          style: const TextStyle(
+                            // fontSize: MySizes.fontSizeMd,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        TextSpan(
+                          text: transactionItem.deleteStatus! ? ' Deleted' : '',
+                          style: const TextStyle(
+                            fontSize: MySizes.fontSizeSm,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+
+                  // Text(
+                  //   '${kios.toUpperCase()}-${numerator.toString().padLeft(4, '0').toUpperCase()}',
+                  //   style: const TextStyle(
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                   subtitle: Text(DateFormat('dd MMM yyyy HH:mm')
                       .format(DateTime.parse(transactionDate))),
                   trailing: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         CurrencyFormat.convertToIdr(grandtotal, 0),
@@ -215,12 +239,16 @@ class TransactionPageState extends State<TransactionPage> {
                             color: MyColors.primary),
                       ),
                       Text(
-                        transactionItem.deleteStatus! ? 'Deleted' : '',
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontSize: MySizes.fontSizeSm,
-                        ),
+                        orderType,
+                        style: const TextStyle(color: Colors.grey),
                       ),
+                      // Text(
+                      //   transactionItem.deleteStatus! ? 'Deleted' : '',
+                      //   style: const TextStyle(
+                      //     color: Colors.red,
+                      //     fontSize: MySizes.fontSizeSm,
+                      //   ),
+                      // ),
                     ],
                   ),
                   leading: const Icon(Icons.receipt),

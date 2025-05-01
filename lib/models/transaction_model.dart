@@ -7,6 +7,7 @@ class TransactionModel {
   int? discount;
   int? total;
   bool? deleteStatus;
+  String? orderType;
   List<Details>? details;
 
   TransactionModel(
@@ -18,6 +19,7 @@ class TransactionModel {
       this.discount,
       this.total,
       this.deleteStatus,
+      this.orderType,
       this.details});
 
   TransactionModel.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,7 @@ class TransactionModel {
     discount = json['discount'];
     total = json['total'];
     deleteStatus = json['delete_status'];
+    orderType = json['order_type'];
     if (json['details'] != null) {
       details = <Details>[];
       json['details'].forEach((v) {
@@ -47,6 +50,7 @@ class TransactionModel {
     data['discount'] = discount;
     data['total'] = total;
     data['delete_status'] = deleteStatus;
+    data['order_type'] = orderType;
     if (details != null) {
       data['details'] = details!.map((v) => v.toJson()).toList();
     }

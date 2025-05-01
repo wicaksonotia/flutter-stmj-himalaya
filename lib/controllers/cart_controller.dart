@@ -1,5 +1,7 @@
+import 'package:chips_choice/chips_choice.dart';
 import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:stmjhimalaya/commons/colors.dart';
+import 'package:stmjhimalaya/commons/lists.dart';
 import 'package:stmjhimalaya/controllers/print_nota_controller.dart';
 import 'package:stmjhimalaya/models/cart_model.dart';
 import 'package:stmjhimalaya/models/product_model.dart';
@@ -17,6 +19,7 @@ class CartController extends GetxController {
   var numberOfItems = 1.obs;
   var totalPrice = 0.obs;
   var totalAllQuantity = 0.obs;
+  var orderType = 'Take Away'.obs;
 
   void incrementProductQuantity(ProductModel dataProduct) {
     if (cartList
@@ -116,6 +119,30 @@ class CartController extends GetxController {
                 ),
               ),
               const Gap(10),
+              Obx(
+                () => ChipsChoice.single(
+                  wrapped: true,
+                  padding: EdgeInsets.zero,
+                  value: orderType.value,
+                  onChanged: (val) => orderType.value = val,
+                  choiceItems: C2Choice.listFrom<String, String>(
+                    source: orderTypeList,
+                    value: (i, v) => v,
+                    label: (i, v) => v,
+                  ),
+                  choiceStyle: C2ChipStyle.filled(
+                    borderRadius: BorderRadius.circular(25),
+                    color: Colors.grey.shade100,
+                    selectedStyle: const C2ChipStyle(
+                      backgroundColor: Colors.red,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(25),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const Gap(10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -164,6 +191,7 @@ class CartController extends GetxController {
                   ),
                 ],
               ),
+              const Gap(10),
             ],
           ),
         ),
@@ -193,6 +221,7 @@ class CartController extends GetxController {
         await RemoteDataSource.saveTransaction(
           prefs.getString('username')!,
           discount,
+          orderType.value,
         );
         // NOTIF SAVE SUCCESS
         Get.snackbar('Notification', 'Data saved successfully',

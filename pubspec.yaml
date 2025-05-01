@@ -31,6 +31,7 @@ dependencies:
   animate_do: ^4.2.0
   badges: ^3.1.2
   bottom_navbar_with_indicator: ^0.0.9
+  chips_choice: ^3.0.1
   currency_text_input_formatter: ^2.3.0
   dio: ^5.8.0+1
   flutter:
