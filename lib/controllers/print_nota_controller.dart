@@ -1,3 +1,4 @@
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stmjhimalaya/commons/currency.dart';
 import 'package:stmjhimalaya/models/transaction_detail_model.dart';
 import 'package:stmjhimalaya/networks/api_request.dart';
@@ -62,13 +63,17 @@ class PrintNotaController extends GetxController {
     final resizedImage = copyResize(image!, width: 300);
     bytes += generator.image(resizedImage);
 
-    bytes += generator.text(
-        'Dsn. Sumbertugu RT 07 RW 04 \nDepan Musholla Sumbertugu',
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? kiosAddress = prefs.getString('alamat')?.replaceAll(r'\n', '\n');
+    bytes += generator.text('$kiosAddress',
         styles: const PosStyles(align: PosAlign.center));
-    bytes += generator.text('Kec. Gampengrejo, Kab. Kediri',
-        styles: const PosStyles(align: PosAlign.center));
-    bytes += generator.text('Telp. 085755124535',
-        styles: const PosStyles(align: PosAlign.center));
+    // bytes += generator.text(
+    //     'Dsn. Sumbertugu RT 07 RW 04 \nDepan Musholla Sumbertugu',
+    //     styles: const PosStyles(align: PosAlign.center));
+    // bytes += generator.text('Kec. Gampengrejo, Kab. Kediri',
+    //     styles: const PosStyles(align: PosAlign.center));
+    // bytes += generator.text('Telp. 085755124535',
+    //     styles: const PosStyles(align: PosAlign.center));
     bytes += generator.feed(1);
 
     var result =
@@ -147,6 +152,16 @@ class PrintNotaController extends GetxController {
       ),
     ]);
     bytes += generator.feed(1);
+    bytes += generator.hr();
+    bytes += generator.row([
+      PosColumn(
+        text: resultRowTransaction.orderType!,
+        width: 12,
+        styles: const PosStyles(align: PosAlign.left),
+      ),
+    ]);
+    bytes += generator.feed(1);
+
     //barcode
     // final List<int> barData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 4];
     // bytes += generator.barcode(Barcode.upcA(barData));

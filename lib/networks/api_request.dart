@@ -21,12 +21,10 @@ class RemoteDataSource {
       // print(response.statusCode);
       if (response.statusCode == 200) {
         if (response.data['status'] == 'ok') {
-          // throw jsonDecode(response.body)['message'];
-          // var token = json['data']['Token'];
-          // final SharedPreferences prefs = await _prefs;
-          // await prefs.setString('token', token);
-          // emailController.clear();
-          // passwordController.clear();
+          final SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setBool('statusLogin', true);
+          await prefs.setString('username', response.data['username']);
+          await prefs.setString('alamat', response.data['alamat']);
           return true;
         }
       }
@@ -100,13 +98,29 @@ class RemoteDataSource {
   }
 
   // GET TRANSACTION
-  static Future<List<TransactionModel>?> getTransactions(DateTime startdate,
-      DateTime enddate, DateTime singledate, bool checksingledate) async {
+  static Future<List<TransactionModel>?> getHistoryTransactions(
+      DateTime startdate,
+      DateTime enddate,
+      DateTime singledate,
+      bool checksingledate) async {
     try {
-      var url =
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getTransactions;
-      final response = await Dio().get(
-          '$url?startdate=$startdate&enddate=$enddate&singledate=$singledate&checksingledate=$checksingledate');
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      var rawFormat = (jsonEncode({
+        'startdate': startdate.toString(),
+        'enddate': enddate.toString(),
+        'singledate': singledate.toString(),
+        'checksingledate': checksingledate,
+        'username': prefs.getString('username'),
+      }));
+      var url = ApiEndPoints.baseUrl +
+          ApiEndPoints.authEndpoints.getHistoryTransactions;
+      // final response = await Dio().get(
+      //     '$url?startdate=$startdate&enddate=$enddate&singledate=$singledate&checksingledate=$checksingledate');
+      Response response = await Dio().post(url,
+          data: rawFormat,
+          options: Options(
+            contentType: Headers.jsonContentType,
+          ));
       if (response.statusCode == 200) {
         List<dynamic> jsonData = response.data;
         // print(jsonData);

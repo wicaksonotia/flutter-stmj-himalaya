@@ -31,7 +31,7 @@ class TransactionController extends GetxController {
   void fetchTransaction() async {
     try {
       isLoading(true);
-      var result = await RemoteDataSource.getTransactions(
+      var result = await RemoteDataSource.getHistoryTransactions(
         startDate.value,
         endDate.value,
         singleDate.value,
