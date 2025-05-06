@@ -24,25 +24,6 @@ class MyApp extends StatelessWidget {
       transitionDuration: const Duration(milliseconds: 500),
       debugShowCheckedModeBanner: false,
       initialRoute: RouterClass.login,
-      builder: (context, child) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          // Automatically attempt to connect to RPP02N on app start
-          PrintBluetoothThermal.connectionStatus.then((bool connected) {
-            if (!connected) {
-              PrintBluetoothThermal.pairedBluetooths.then((devices) {
-                for (var device in devices) {
-                  if (device.name == "RPP02N") {
-                    PrintBluetoothThermal.connect(
-                        macPrinterAddress: device.macAdress);
-                    break;
-                  }
-                }
-              });
-            }
-          });
-        });
-        return child!;
-      },
     );
   }
 }

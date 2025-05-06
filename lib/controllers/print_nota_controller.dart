@@ -26,9 +26,10 @@ class PrintNotaController extends GetxController {
             icon: const Icon(Icons.error), snackPosition: SnackPosition.TOP);
       }
     } else {
+      var macPrinterAddress = "10:22:33:C7:00:BA";
       PrintBluetoothThermal.pairedBluetooths.then((devices) {
         for (var device in devices) {
-          if (device.name == "RPP02N") {
+          if (device.macAdress == macPrinterAddress) {
             PrintBluetoothThermal.connect(macPrinterAddress: device.macAdress)
                 .then((connected) {
               // if (!connected) {

@@ -321,7 +321,7 @@ class _BluetoothSettingState extends State<BluetoothSetting> {
     //bytes += generator.setGlobalFont(PosFontType.fontA);
     bytes += generator.reset();
 
-    final ByteData data = await rootBundle.load('assets/images/logo.png');
+    final ByteData data = await rootBundle.load('assets/images/logo.jpg');
     final Uint8List bytesImg = data.buffer.asUint8List();
     img.Image? image = img.decodeImage(bytesImg);
 
