@@ -1,4 +1,4 @@
-import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:stmjhimalaya/bindings/initial_binding.dart';
 import 'package:flutter/material.dart';
 import 'package:stmjhimalaya/navigation/app_navigation.dart';
@@ -9,6 +9,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   Get.put(prefs);
+
+  await Future.delayed(const Duration(seconds: 2));
+  FlutterNativeSplash.remove();
   runApp(const MyApp());
 }
 
