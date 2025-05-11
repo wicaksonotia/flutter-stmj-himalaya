@@ -28,24 +28,37 @@ class PrintNotaController extends GetxController {
     } else {
       var macPrinterAddress = "10:22:33:C7:00:BA";
       PrintBluetoothThermal.pairedBluetooths.then((devices) {
-        for (var device in devices) {
-          if (device.macAdress == macPrinterAddress) {
-            PrintBluetoothThermal.connect(macPrinterAddress: device.macAdress)
-                .then((connected) {
-              // if (!connected) {
-              //   Get.snackbar('Notification', 'Failed to connect to RPP02N',
-              //       icon: const Icon(Icons.error),
-              //       snackPosition: SnackPosition.TOP);
-              // } else {
-              //   PrintBluetoothThermal.writeBytes(nota);
-              // }
-              if (connected) {
-                PrintBluetoothThermal.writeBytes(nota);
+        PrintBluetoothThermal.connect(macPrinterAddress: macPrinterAddress)
+            .then((connected) {
+          if (!connected) {
+            Get.snackbar('Notification', 'Failed to connect to printer',
+                icon: const Icon(Icons.error),
+                snackPosition: SnackPosition.TOP);
+          } else {
+            PrintBluetoothThermal.writeBytes(nota).then((result) {
+              if (!result) {
+                Get.snackbar('Notification', 'Failed to print',
+                    icon: const Icon(Icons.error),
+                    snackPosition: SnackPosition.TOP);
               }
             });
-            break;
           }
-        }
+        });
+        // for (var device in devices) {
+        //   if (device.macAdress == macPrinterAddress) {
+        //     PrintBluetoothThermal.connect(macPrinterAddress: device.macAdress)
+        //         .then((connected) {
+        //       if (connected) {
+        //         PrintBluetoothThermal.writeBytes(nota);
+        //       } else {
+        //         Get.snackbar('Notification', 'Failed to connect to RPP02N',
+        //             icon: const Icon(Icons.error),
+        //             snackPosition: SnackPosition.TOP);
+        //       }
+        //     });
+        //     break;
+        //   }
+        // }
       });
     }
   }
