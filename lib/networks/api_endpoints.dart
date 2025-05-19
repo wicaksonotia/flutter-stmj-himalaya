@@ -1,16 +1,16 @@
 class ApiEndPoints {
-  static const String baseUrl = 'http://103.184.181.9/api/';
+  static const String baseUrl = 'http://103.184.181.9/apiStmj/';
   static _AuthEndPoints authEndpoints = _AuthEndPoints();
 }
 
 class _AuthEndPoints {
   final String login = 'loginkios';
-  final String categories = 'productcategorystmj';
+  final String categories = 'productcategory';
   final String product = 'products';
-  final String saveDetailTransaction = 'savedetailtransactionstmj';
-  final String saveTransaction = 'savetransactionstmj';
-  final String getHistoryTransactions = 'transactionsstmj';
-  final String deleteTransaction = 'deletetransactionstmj';
-  final String getTransactionDetails = 'transactiondetailstmj';
-  final String getRowTransactions = 'gettransactionstmj';
+  final String saveDetailTransaction = 'savedetailtransaction';
+  final String saveTransaction = 'savetransaction';
+  final String getRowTransactions = 'gettransaction';
+  final String getHistoryTransactions = 'transactions';
+  final String deleteTransaction = 'deletetransaction';
+  final String getTransactionDetails = 'transactiondetail';
 }
