@@ -234,6 +234,7 @@ class CartController extends GetxController {
         cartList.clear();
         totalAllQuantity = 0.obs;
         totalPrice.value = 0;
+        orderType.value = 'Take Away';
         update();
       }
     } catch (e) {
