@@ -34,122 +34,6 @@ class RemoteDataSource {
     }
   }
 
-  // SAVE TRANSACTION
-  static Future<bool> saveDetailTransaction(List<dynamic> data) async {
-    // String jsonData = jsonEncode(data);
-    try {
-      Dio dio = Dio();
-      var url = ApiEndPoints.baseUrl +
-          ApiEndPoints.authEndpoints.saveDetailTransaction;
-      Response response = await dio.post(url,
-          data: jsonEncode(data),
-          options: Options(
-            contentType: Headers.jsonContentType,
-          ));
-      if (response.statusCode == 200) {
-        final SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString(
-            'numerator', response.data['numerator'].toString());
-        return true;
-      }
-      return false;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  static Future<bool> saveTransaction(
-      String kios, int discount, String orderType) async {
-    try {
-      var rawFormat = jsonEncode(
-          {'kios': kios, 'discount': discount, 'orderType': orderType});
-      Dio dio = Dio();
-      var url =
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.saveTransaction;
-      Response response = await dio.post(url,
-          data: rawFormat,
-          options: Options(
-            contentType: Headers.jsonContentType,
-          ));
-      if (response.statusCode == 200) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  // DELETE TRANSACTION
-  static Future<bool> deleteTransaction(int numerator, String kios) async {
-    try {
-      Dio dio = Dio();
-      var url =
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.deleteTransaction;
-      Response response =
-          await dio.delete('$url?numerator=$numerator&kios=$kios');
-      if (response.statusCode == 200) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      return false;
-    }
-  }
-
-  // GET TRANSACTION
-  static Future<List<TransactionModel>?> getHistoryTransactions(
-      DateTime startdate,
-      DateTime enddate,
-      DateTime singledate,
-      bool checksingledate) async {
-    try {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
-      var rawFormat = (jsonEncode({
-        'startdate': startdate.toString(),
-        'enddate': enddate.toString(),
-        'singledate': singledate.toString(),
-        'checksingledate': checksingledate,
-        'username': prefs.getString('username'),
-      }));
-      var url = ApiEndPoints.baseUrl +
-          ApiEndPoints.authEndpoints.getHistoryTransactions;
-      // final response = await Dio().get(
-      //     '$url?startdate=$startdate&enddate=$enddate&singledate=$singledate&checksingledate=$checksingledate');
-      Response response = await Dio().post(url,
-          data: rawFormat,
-          options: Options(
-            contentType: Headers.jsonContentType,
-          ));
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = response.data;
-        // print(jsonData);
-        return jsonData.map((e) => TransactionModel.fromJson(e)).toList();
-      }
-      return null;
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
-  // GET TRANSACTION DETAILS
-  static Future<List<TransactionDetailModel>?> getTransactionDetails(
-      int numerator, String kios) async {
-    try {
-      var url = ApiEndPoints.baseUrl +
-          ApiEndPoints.authEndpoints.getTransactionDetails;
-      final response = await Dio().get('$url?numerator=$numerator&kios=$kios');
-      if (response.statusCode == 200) {
-        List<dynamic> jsonData = response.data;
-        // print(jsonData);
-        return jsonData.map((e) => TransactionDetailModel.fromJson(e)).toList();
-      }
-      return null;
-    } catch (e) {
-      throw Exception(e.toString());
-    }
-  }
-
   // PRODUCT CATEGORIES
   static Future<List<ProductCategoryModel>?> getProductCategories() async {
     try {
@@ -181,17 +65,67 @@ class RemoteDataSource {
     }
   }
 
-  // GET LIST TRANSACTION DETAILS BY NUMERATOR AND KIOS
-  static Future<List<TransactionDetailModel>?> getListTransactionDetails(
-      int numerator, String kios) async {
+  // SAVE TRANSACTION
+  static Future<bool> saveTransaction(
+    Map<String, dynamic> dataTransaction,
+    List<dynamic> dataDetail,
+  ) async {
     try {
-      var url = ApiEndPoints.baseUrl +
-          ApiEndPoints.authEndpoints.getTransactionDetails;
-      final response = await Dio().get('$url?numerator=$numerator&kios=$kios');
+      var rawFormat = jsonEncode({
+        'transaction': dataTransaction,
+        'details': dataDetail,
+      });
+      Dio dio = Dio();
+      var url =
+          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.saveTransaction;
+      Response response = await dio.post(
+        url,
+        data: rawFormat,
+        options: Options(contentType: Headers.jsonContentType),
+      );
       if (response.statusCode == 200) {
-        List<dynamic> jsonData = response.data;
-        // print(jsonData);
-        return jsonData.map((e) => TransactionDetailModel.fromJson(e)).toList();
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // DELETE TRANSACTION
+  static Future<bool> deleteTransaction(int numerator, String kios) async {
+    try {
+      Dio dio = Dio();
+      var url =
+          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.deleteTransaction;
+      Response response =
+          await dio.delete('$url?numerator=$numerator&kios=$kios');
+      if (response.statusCode == 200) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  // GET TRANSACTION DETAIL BY NUMERATOR AND KIOS
+  static Future<TransactionDetailModel?> getDetailTransaction(
+    Map<String, dynamic> data,
+  ) async {
+    try {
+      var rawFormat = jsonEncode(data);
+      var url = ApiEndPoints.baseUrl +
+          ApiEndPoints.authEndpoints.getDetailTransaction;
+      final response = await Dio().post(
+        url,
+        data: rawFormat,
+        options: Options(contentType: Headers.jsonContentType),
+      );
+      if (response.statusCode == 200) {
+        final TransactionDetailModel res =
+            TransactionDetailModel.fromJson(response.data);
+        return res;
       }
       return null;
     } catch (e) {
@@ -199,16 +133,47 @@ class RemoteDataSource {
     }
   }
 
-  // GET TRANSACTION DETAIL BY NUMERATOR AND KIOS
-  static Future<TransactionModel?> getRowTransactionDetails(
-      int numerator, String kios) async {
+  static Future<TransactionModel?> transactionHistoryByDateRange(
+    Map<String, dynamic> data,
+  ) async {
     try {
-      var url =
-          ApiEndPoints.baseUrl + ApiEndPoints.authEndpoints.getRowTransactions;
-      final response = await Dio().get('$url?numerator=$numerator&kios=$kios');
+      var rawFormat = Map<String, dynamic>.from(data);
+      rawFormat['startDate'] = data['startDate'].toString();
+      rawFormat['endDate'] = data['endDate'].toString();
+      var url = ApiEndPoints.baseUrl +
+          ApiEndPoints.authEndpoints.transactionHistoryByDateRange;
+      Response response = await Dio().post(
+        url,
+        data: jsonEncode(rawFormat),
+        options: Options(contentType: Headers.jsonContentType),
+      );
       if (response.statusCode == 200) {
-        dynamic jsonData = response.data;
-        return TransactionModel.fromJson(jsonData);
+        final TransactionModel res = TransactionModel.fromJson(response.data);
+        return res;
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      throw Exception(e.toString());
+    }
+  }
+
+  static Future<TransactionModel?> transactionHistoryByMonth(
+    Map<String, dynamic> data,
+  ) async {
+    try {
+      var rawFormat = jsonEncode(data);
+      // print(rawFormat);
+      var url = ApiEndPoints.baseUrl +
+          ApiEndPoints.authEndpoints.transactionHistoryByMonth;
+      Response response = await Dio().post(
+        url,
+        data: rawFormat,
+        options: Options(contentType: Headers.jsonContentType),
+      );
+      if (response.statusCode == 200) {
+        final TransactionModel res = TransactionModel.fromJson(response.data);
+        return res;
       }
       return null;
     } catch (e) {

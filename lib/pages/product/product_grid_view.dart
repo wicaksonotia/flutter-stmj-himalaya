@@ -1,6 +1,8 @@
 // import 'dart:convert';
 // import 'dart:typed_data';
 
+import 'dart:typed_data';
+
 import 'package:stmjhimalaya/pages/product/increment_and_decrement.dart';
 import 'package:stmjhimalaya/pages/product/product_price.dart';
 import 'package:flutter/material.dart';
@@ -24,8 +26,7 @@ class ProductGridView extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
-            itemCount:
-                controller.productItems.length, // Number of shimmer items
+            itemCount: 5,
             shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -122,9 +123,7 @@ class ProductGridView extends StatelessWidget {
               var dataProductName = controller.productItems[index].productName!;
               var dataDescription = controller.productItems[index].description!;
               var dataPrice = controller.productItems[index].price!;
-              // Uint8List decodePhoto;
-              // decodePhoto = const Base64Decoder()
-              //     .convert(controller.productItems[index].photo1!);
+              var dataPhoto = controller.productItems[index].photo1;
 
               return BoxContainer(
                 height: 290,
@@ -141,14 +140,10 @@ class ProductGridView extends StatelessWidget {
                             margin: const EdgeInsets.only(right: 5),
                             width: 100,
                             height: 100,
-                            decoration: const BoxDecoration(
-                              // image: DecorationImage(
-                              //   image: MemoryImage(decodePhoto),
-                              //   fit: BoxFit.cover,
-                              // ),
+                            decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage('assets/images/stmj.jpeg'),
-                                fit: BoxFit.cover,
+                                image: MemoryImage(dataPhoto ?? Uint8List(0)),
+                                fit: BoxFit.fitHeight,
                               ),
                             ),
                           ),
